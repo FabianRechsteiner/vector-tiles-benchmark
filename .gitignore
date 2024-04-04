@@ -1,0 +1,8 @@
+postgis-data
+ldproxy/*
+!ldproxy/api-resources/tile-matrix-sets
+!ldproxy/store
+*.sql
+*.env
+nginx/nginx.conf
+nginx/logs
