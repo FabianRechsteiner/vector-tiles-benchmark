@@ -1,0 +1,140 @@
+version: "3"
+services:
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    volumes:
+      - ./nginx/html:/usr/share/nginx/html
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/logs:/var/log/nginx
+      - ./nginx/cache:/var/cache/nginx
+    profiles: ["nginx"]
+    ports:
+      - 80:80
+    environment:
+      - no-cache
+      
+  postgis:
+    image: postgis/postgis:${POSTGRES_VERSION:-16-3.4-alpine}
+    container_name: postgis
+    profiles: ["postgis","bbox","pg_tileserv","tipg","ldproxy","tegola","martin","all_server"]
+    environment:
+      #- POSTGRES_USER=${POSTGRES_ADMIN_USERNAME:-postgres} # default
+      - POSTGRES_PASSWORD=${POSTGRES_ADMIN_PASSWORD:-admin_password}
+      #- POSTGRES_DB=${POSTGRES_DB:-postgres} # default, if used, it creates a second DB with name postgres -> conflicts with sql imports.
+    volumes:
+      - ./postgis-data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+      
+  bbox:
+    image: sourcepole/bbox-server-qgis:v0.5.0-beta1 #latest
+    container_name: bbox
+    environment:
+     - PGPASSWORD=${POSTGRES_USER_PASSWORD:-user_password}
+     - PGUSER=${POSTGRES_USER_USERNAME:-user_name}
+     - PGDATABASE=${POSTGRES_DB:-postgres_db}
+     - PGHOST=${POSTGRES_HOST:-postgres_host}
+    profiles: ["bbox","all_server"]
+    ports:
+      - 8804:8080
+    volumes:
+    - ./bbox:/var
+    - ./bbox/assets:/assets
+    depends_on:
+      - postgis
+
+  ldproxy:
+    image: iide/ldproxy:3.6.3
+    container_name: ldproxy
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER_USERNAME:-user_name}
+      - POSTGRES_USER_PASSWORD_BASE64=${POSTGRES_USER_PASSWORD_BASE64}
+      - POSTGRES_DB=${POSTGRES_DB:-postgres_db}
+      - POSTGRES_HOST=${POSTGRES_HOST:-postgres_host}
+    volumes:
+      - ./ldproxy:/ldproxy/data
+    depends_on:
+      - postgis
+    profiles: ["ldproxy","all_server"]
+    ports:
+      - 7080:7080
+
+  martin:
+    image: ghcr.io/maplibre/martin:v0.13.0
+    container_name: martin
+    environment:
+      - DATABASE_URL=postgresql://${POSTGRES_USER_USERNAME:-user_name}:${POSTGRES_USER_PASSWORD:-user_password}@postgis/${POSTGRES_DB:-postgres_db}
+    volumes:
+      - ./martin:/opt/martin_config
+    depends_on:
+      - postgis
+    profiles: ["martin","all_server"]
+    ports:
+      - 3000:3000
+
+  pg_tileserv:
+    image: pramsey/pg_tileserv:20240131
+    container_name: pg_tileserv
+    environment:
+      - DATABASE_URL=postgresql://${POSTGRES_USER_USERNAME:-user_name}:${POSTGRES_USER_PASSWORD:-user_password}@postgis/${POSTGRES_DB:-postgres_db}
+    volumes:
+      - ./pg_tileserv:/config
+    depends_on:
+      - postgis
+    profiles: ["pg_tileserv","all_server"]
+    ports:
+      - 7800:7800
+
+  tegola:
+    image: gospatial/tegola:latest
+    container_name: tegola
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER_USERNAME:-user_name}
+      - POSTGRES_PASSWORD=${POSTGRES_USER_PASSWORD:-user_password}
+      - POSTGRES_DB=${POSTGRES_DB:-postgres_db}
+      - POSTGRES_HOST=${POSTGRES_HOST:-postgres_host}
+      - TEGOLA_SQL_DEBUG=LAYER_SQL # LAYER_SQL or EXECUTE_SQL
+    volumes:
+      - ./tegola:/opt/tegola_config
+    entrypoint: /opt/tegola
+    command: "serve --config /opt/tegola_config/config.toml serve --log-level DEBUG"
+    depends_on:
+      - postgis
+    profiles: ["tegola","all_server"]
+    ports:
+      - 8090:8090
+
+  tipg:
+    image: ghcr.io/developmentseed/tipg:latest
+    container_name: tipg
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER_USERNAME:-user_name}
+      - POSTGRES_PASS=${POSTGRES_USER_PASSWORD:-user_password}
+      - POSTGRES_DBNAME=${POSTGRES_DB:-postgres}
+      - POSTGRES_HOST=${POSTGRES_HOST:-postgis}
+      - POSTGRES_PORT=5432
+      - PORT=8080
+      - DEBUG=TRUE
+      - TILEMATRIXSET_DIRECTORY=tms
+      ### This Paramaters can also be saved in a seperate .env-File
+      #- TIPG_NAME="Welcome to my OGC Features and Tiles API"
+      #- TIPG_DB_SCHEMAS=["avprodukt", "public"]
+    volumes:
+      - ./tipg:/tmp
+    depends_on:
+      - postgis
+    profiles: ["tipg","all_server"]
+    ports:
+      - 8080:8080
+
+  maputnik:
+
+    image: maputnik/editor:latest
+    container_name: maputnik
+    profiles: ["maputnik"]
+    ports:
+      - 8888:8888
+
+
