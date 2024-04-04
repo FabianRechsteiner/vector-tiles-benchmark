@@ -4,5 +4,6 @@ ldproxy/*
 !ldproxy/store
 *.sql
 *.env
+!tipg/.env
 nginx/nginx.conf
 nginx/logs
