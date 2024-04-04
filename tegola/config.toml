@@ -1,0 +1,90 @@
+# --- /tegola/config.toml ---
+[webserver]
+port = ":8090"
+#CORSAllowedOrigin = "*"
+
+# --- register data providers ---
+[[providers]]
+name = "avprodukt"  # provider name is referenced from map layers (required)
+type = "mvt_postgis"
+uri = "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:5432/${POSTGRES_DB}"
+pool_max_conns = "200"
+
+# --- provider-layers ---
+
+    [[providers.layers]]
+    name = "bo_boflaeche_mv"
+    id_fieldname = "objectid"
+    geometry_fieldname = "wkb_geometry"
+    geometry_type = "polygon"
+    sql = "SELECT ST_AsMVTGeom(ST_Transform(wkb_geometry, 3857),ST_Transform(!BBOX!,3857)) AS wkb_geometry, objectid, art FROM avprodukt.bo_boflaeche_mv WHERE wkb_geometry && ST_Transform(!BBOX!,2056) "
+
+    [[providers.layers]]
+    name = "gg_gemeindegrenze_mv"
+    id_fieldname = "objectid"
+    geometry_fieldname = "wkb_geometry"
+    geometry_type = "polygon"
+    sql = "SELECT ST_AsMVTGeom(ST_Transform(wkb_geometry, 3857),ST_Transform(!BBOX!,3857)) AS wkb_geometry, objectid, gemeinde_name, gemeinde_bfsnr FROM avprodukt.gg_gemeindegrenze_mv WHERE wkb_geometry && ST_Transform(!BBOX!,2056) "
+
+    [[providers.layers]]
+    name = "li_liegenschaft_mv"
+    id_fieldname = "objectid"
+    geometry_fieldname = "wkb_geometry"
+    geometry_type = "polygon"
+    sql = "SELECT ST_AsMVTGeom(ST_Transform(wkb_geometry, 3857),ST_Transform(!BBOX!,3857)) AS wkb_geometry, objectid, gs_nummer, gs_egris_egrid FROM avprodukt.li_liegenschaft_mv WHERE wkb_geometry && ST_Transform(!BBOX!,2056) "
+
+    [[providers.layers]]
+    name = "li_grenzpunkt_mv"
+    id_fieldname = "objectid"
+    geometry_fieldname = "wkb_geometry"
+    geometry_type = "point"
+    sql = "SELECT ST_AsMVTGeom(ST_Transform(wkb_geometry, 3857),ST_Transform(!BBOX!,3857)) AS wkb_geometry, objectid, punktzeichen FROM avprodukt.li_grenzpunkt_mv WHERE wkb_geometry && ST_Transform(!BBOX!,2056) "
+
+    [[providers.layers]]
+    name = "eo_linienelement_mv"
+    id_fieldname = "objectid"
+    geometry_fieldname = "wkb_geometry"
+    geometry_type = "linestring"
+    sql = "SELECT ST_AsMVTGeom(ST_Transform(wkb_geometry, 3857),ST_Transform(!BBOX!,3857)) AS wkb_geometry, objectid, art FROM avprodukt.eo_linienelement_mv WHERE wkb_geometry && ST_Transform(!BBOX!,2056) "
+
+    [[providers.layers]]
+    name = "bo_projgebaeude_mv"
+    id_fieldname = "objectid"
+    geometry_fieldname = "wkb_geometry"
+    geometry_type = "polygon"
+    sql = "SELECT ST_AsMVTGeom(ST_Transform(wkb_geometry, 3857),ST_Transform(!BBOX!,3857)) AS wkb_geometry, objectid FROM avprodukt.bo_projgebaeude_mv WHERE wkb_geometry && ST_Transform(!BBOX!,2056) "
+
+    [[maps]]
+    name = "avprodukt"
+    attribution = "Amtliche Vermessung"
+    center = [9.08545538325693, 47.57304195845273, 10.0] # set the center of the map so the user is auto navigated to Canton Thurgau
+
+    [[maps.layers]]
+    provider_layer = "avprodukt.bo_boflaeche_mv"
+    min_zoom = 10
+    max_zoom = 22
+
+    [[maps.layers]]
+    provider_layer = "avprodukt.gg_gemeindegrenze_mv"
+    min_zoom = 0
+    max_zoom = 22
+
+    [[maps.layers]]
+    provider_layer = "avprodukt.li_liegenschaft_mv"
+    min_zoom = 5
+    max_zoom = 22
+
+    [[maps.layers]]
+    provider_layer = "avprodukt.li_grenzpunkt_mv"
+    min_zoom = 12
+    max_zoom = 22
+
+    [[maps.layers]]
+    provider_layer = "avprodukt.eo_linienelement_mv"
+    min_zoom = 12
+    max_zoom = 22
+
+    [[maps.layers]]
+    provider_layer = "avprodukt.bo_projgebaeude_mv"
+    min_zoom = 10
+    max_zoom = 22
