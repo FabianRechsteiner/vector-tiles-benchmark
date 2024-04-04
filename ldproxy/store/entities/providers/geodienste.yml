@@ -1,0 +1,755 @@
+# ---
+# id: geodienste
+# createdAt: 1700831788913
+# lastModified: 1700831788913
+# entityStorageVersion: 2
+# providerType: FEATURE
+# providerSubType: WFS
+# nativeCrs:
+#   code: 3857
+#   forceAxisOrder: NONE
+# connectionInfo:
+#   version: 2.0.0
+#   namespaces:
+#     gml: http://www.opengis.net/gml/3.2
+#     wfs: http://www.opengis.net/wfs/2.0
+#     ows: http://www.opengis.net/ows/1.1
+#     xlink: http://www.w3.org/1999/xlink
+#     xsi: http://www.w3.org/2001/XMLSchema-instance
+#     fes: http://www.opengis.net/fes/2.0
+#     ms: http://mapserver.gis.umn.edu/mapserver
+#   uri: https://geodienste.ch/db/av_0/deu?SERVICE=WFS&REQUEST=GetCapabilities
+#   connectorType: HTTP
+# types:
+#   plna:
+#     sourcePath: /ms:PLNA
+#     type: OBJECT
+#     properties:
+#       id:
+#         sourcePath: gml:@id
+#         type: STRING
+#         role: ID
+#       msGeometry:
+#         sourcePath: ms:msGeometry
+#         type: GEOMETRY
+#         role: PRIMARY_GEOMETRY
+#         geometryType: ANY
+#       BFSNr:
+#         sourcePath: ms:BFSNr
+#         type: FLOAT
+#       Betreiber:
+#         sourcePath: ms:Betreiber
+#         type: STRING
+#       Ori:
+#         sourcePath: ms:Ori
+#         type: FLOAT
+#       Loc:
+#         sourcePath: ms:Loc
+#         type: STRING
+#       Kanton:
+#         sourcePath: ms:Kanton
+#         type: STRING
+#   plsf:
+#     sourcePath: /ms:PLSF
+#     type: OBJECT
+#     properties:
+#       id:
+#         sourcePath: gml:@id
+#         type: STRING
+#         role: ID
+#       msGeometry:
+#         sourcePath: ms:msGeometry
+#         type: GEOMETRY
+#         role: PRIMARY_GEOMETRY
+#         geometryType: ANY
+#       BFSNr:
+#         sourcePath: ms:BFSNr
+#         type: FLOAT
+#       Betreiber:
+#         sourcePath: ms:Betreiber
+#         type: STRING
+#       Medium:
+#         sourcePath: ms:Medium
+#         type: STRING
+#       Gueltigkeit:
+#         sourcePath: ms:Gueltigkeit
+#         type: STRING
+#       Kanton:
+#         sourcePath: ms:Kanton
+#         type: STRING
+#   plli:
+#     sourcePath: /ms:PLLI
+#     type: OBJECT
+#     properties:
+#       id:
+#         sourcePath: gml:@id
+#         type: STRING
+#         role: ID
+#       msGeometry:
+#         sourcePath: ms:msGeometry
+#         type: GEOMETRY
+#         role: PRIMARY_GEOMETRY
+#         geometryType: ANY
+#       BFSNr:
+#         sourcePath: ms:BFSNr
+#         type: FLOAT
+#       Betreiber:
+#         sourcePath: ms:Betreiber
+#         type: STRING
+#       Medium:
+#         sourcePath: ms:Medium
+#         type: STRING
+#       Gueltigkeit:
+#         sourcePath: ms:Gueltigkeit
+#         type: STRING
+#       Kanton:
+#         sourcePath: ms:Kanton
+#         type: STRING
+#   lcobj:
+#     sourcePath: /ms:LCOBJ
+#     type: OBJECT
+#     properties:
+#       id:
+#         sourcePath: gml:@id
+#         type: STRING
+#         role: ID
+#       msGeometry:
+#         sourcePath: ms:msGeometry
+#         type: GEOMETRY
+#         role: PRIMARY_GEOMETRY
+#         geometryType: ANY
+#       BFSNr:
+#         sourcePath: ms:BFSNr
+#         type: FLOAT
+#       Typ:
+#         sourcePath: ms:Typ
+#         type: STRING
+#       Text:
+#         sourcePath: ms:Text
+#         type: STRING
+#       Ori:
+#         sourcePath: ms:Ori
+#         type: FLOAT
+#       Loc:
+#         sourcePath: ms:Loc
+#         type: STRING
+#       Kanton:
+#         sourcePath: ms:Kanton
+#         type: STRING
+#   lcsf:
+#     sourcePath: /ms:LCSF
+#     type: OBJECT
+#     properties:
+#       id:
+#         sourcePath: gml:@id
+#         type: STRING
+#         role: ID
+#       msGeometry:
+#         sourcePath: ms:msGeometry
+#         type: GEOMETRY
+#         role: PRIMARY_GEOMETRY
+#         geometryType: ANY
+#       BFSNr:
+#         sourcePath: ms:BFSNr
+#         type: FLOAT
+#       Qualitaet:
+#         sourcePath: ms:Qualitaet
+#         type: STRING
+#       Art:
+#         sourcePath: ms:Art
+#         type: STRING
+#       GWR_EGID:
+#         sourcePath: ms:GWR_EGID
+#         type: STRING
+#       Kanton:
+#         sourcePath: ms:Kanton
+#         type: STRING
+#   lcsfproj:
+#     sourcePath: /ms:LCSFPROJ
+#     type: OBJECT
+#     properties:
+#       id:
+#         sourcePath: gml:@id
+#         type: STRING
+#         role: ID
+#       msGeometry:
+#         sourcePath: ms:msGeometry
+#         type: GEOMETRY
+#         role: PRIMARY_GEOMETRY
+#         geometryType: ANY
+#       BFSNr:
+#         sourcePath: ms:BFSNr
+#         type: FLOAT
+#       Qualitaet:
+#         sourcePath: ms:Qualitaet
+#         type: STRING
+#       Art:
+#         sourcePath: ms:Art
+#         type: STRING
+#       GWR_EGID:
+#         sourcePath: ms:GWR_EGID
+#         type: STRING
+#       Kanton:
+#         sourcePath: ms:Kanton
+#         type: STRING
+#   soobj:
+#     sourcePath: /ms:SOOBJ
+#     type: OBJECT
+#     properties:
+#       id:
+#         sourcePath: gml:@id
+#         type: STRING
+#         role: ID
+#       msGeometry:
+#         sourcePath: ms:msGeometry
+#         type: GEOMETRY
+#         role: PRIMARY_GEOMETRY
+#         geometryType: ANY
+#       BFSNr:
+#         sourcePath: ms:BFSNr
+#         type: FLOAT
+#       Typ:
+#         sourcePath: ms:Typ
+#         type: STRING
+#       Text:
+#         sourcePath: ms:Text
+#         type: STRING
+#       Ori:
+#         sourcePath: ms:Ori
+#         type: FLOAT
+#       Loc:
+#         sourcePath: ms:Loc
+#         type: STRING
+#       Kanton:
+#         sourcePath: ms:Kanton
+#         type: STRING
+#   soli:
+#     sourcePath: /ms:SOLI
+#     type: OBJECT
+#     properties:
+#       id:
+#         sourcePath: gml:@id
+#         type: STRING
+#         role: ID
+#       msGeometry:
+#         sourcePath: ms:msGeometry
+#         type: GEOMETRY
+#         role: PRIMARY_GEOMETRY
+#         geometryType: ANY
+#       BFSNr:
+#         sourcePath: ms:BFSNr
+#         type: FLOAT
+#       Gueltigkeit:
+#         sourcePath: ms:Gueltigkeit
+#         type: STRING
+#       Art:
+#         sourcePath: ms:Art
+#         type: STRING
+#       Qualitaet:
+#         sourcePath: ms:Qualitaet
+#         type: STRING
+#       Kanton:
+#         sourcePath: ms:Kanton
+#         type: STRING
+#   sosf:
+#     sourcePath: /ms:SOSF
+#     type: OBJECT
+#     properties:
+#       id:
+#         sourcePath: gml:@id
+#         type: STRING
+#         role: ID
+#       msGeometry:
+#         sourcePath: ms:msGeometry
+#         type: GEOMETRY
+#         role: PRIMARY_GEOMETRY
+#         geometryType: ANY
+#       BFSNr:
+#         sourcePath: ms:BFSNr
+#         type: FLOAT
+#       Gueltigkeit:
+#         sourcePath: ms:Gueltigkeit
+#         type: STRING
+#       Art:
+#         sourcePath: ms:Art
+#         type: STRING
+#       Qualitaet:
+#         sourcePath: ms:Qualitaet
+#         type: STRING
+#       GWR_EGID:
+#         sourcePath: ms:GWR_EGID
+#         type: STRING
+#       Kanton:
+#         sourcePath: ms:Kanton
+#         type: STRING
+#   sopt:
+#     sourcePath: /ms:SOPT
+#     type: OBJECT
+#     properties:
+#       id:
+#         sourcePath: gml:@id
+#         type: STRING
+#         role: ID
+#       msGeometry:
+#         sourcePath: ms:msGeometry
+#         type: GEOMETRY
+#         role: PRIMARY_GEOMETRY
+#         geometryType: ANY
+#       BFSNr:
+#         sourcePath: ms:BFSNr
+#         type: FLOAT
+#       Gueltigkeit:
+#         sourcePath: ms:Gueltigkeit
+#         type: STRING
+#       Art:
+#         sourcePath: ms:Art
+#         type: STRING
+#       Qualitaet:
+#         sourcePath: ms:Qualitaet
+#         type: STRING
+#       Ori:
+#         sourcePath: ms:Ori
+#         type: FLOAT
+#       Kanton:
+#         sourcePath: ms:Kanton
+#         type: STRING
+#   locpos:
+#     sourcePath: /ms:LOCPOS
+#     type: OBJECT
+#     properties:
+#       id:
+#         sourcePath: gml:@id
+#         type: STRING
+#         role: ID
+#       msGeometry:
+#         sourcePath: ms:msGeometry
+#         type: GEOMETRY
+#         role: PRIMARY_GEOMETRY
+#         geometryType: ANY
+#       BFSNr:
+#         sourcePath: ms:BFSNr
+#         type: FLOAT
+#       Strassenname:
+#         sourcePath: ms:Strassenname
+#         type: STRING
+#       Ori:
+#         sourcePath: ms:Ori
+#         type: FLOAT
+#       Loc:
+#         sourcePath: ms:Loc
+#         type: STRING
+#       Kanton:
+#         sourcePath: ms:Kanton
+#         type: STRING
+#   hadr:
+#     sourcePath: /ms:HADR
+#     type: OBJECT
+#     properties:
+#       id:
+#         sourcePath: gml:@id
+#         type: STRING
+#         role: ID
+#       msGeometry:
+#         sourcePath: ms:msGeometry
+#         type: GEOMETRY
+#         role: PRIMARY_GEOMETRY
+#         geometryType: ANY
+#       BFSNr:
+#         sourcePath: ms:BFSNr
+#         type: FLOAT
+#       Hausnummer:
+#         sourcePath: ms:Hausnummer
+#         type: STRING
+#       Gebaeudename:
+#         sourcePath: ms:Gebaeudename
+#         type: STRING
+#       GWR_EGID:
+#         sourcePath: ms:GWR_EGID
+#         type: STRING
+#       GWR_EDID:
+#         sourcePath: ms:GWR_EDID
+#         type: STRING
+#       Strassenname:
+#         sourcePath: ms:Strassenname
+#         type: STRING
+#       PLZ:
+#         sourcePath: ms:PLZ
+#         type: FLOAT
+#       Zusatzziffern:
+#         sourcePath: ms:Zusatzziffern
+#         type: STRING
+#       Ortschaftsname:
+#         sourcePath: ms:Ortschaftsname
+#         type: STRING
+#       Ori:
+#         sourcePath: ms:Ori
+#         type: FLOAT
+#       Loc:
+#         sourcePath: ms:Loc
+#         type: STRING
+#       Kanton:
+#         sourcePath: ms:Kanton
+#         type: STRING
+#   lnna:
+#     sourcePath: /ms:LNNA
+#     type: OBJECT
+#     properties:
+#       id:
+#         sourcePath: gml:@id
+#         type: STRING
+#         role: ID
+#       msGeometry:
+#         sourcePath: ms:msGeometry
+#         type: GEOMETRY
+#         role: PRIMARY_GEOMETRY
+#         geometryType: ANY
+#       BFSNr:
+#         sourcePath: ms:BFSNr
+#         type: FLOAT
+#       Kategorie:
+#         sourcePath: ms:Kategorie
+#         type: STRING
+#       Name:
+#         sourcePath: ms:Name
+#         type: STRING
+#       Ori:
+#         sourcePath: ms:Ori
+#         type: FLOAT
+#       Loc:
+#         sourcePath: ms:Loc
+#         type: STRING
+#       Kanton:
+#         sourcePath: ms:Kanton
+#         type: STRING
+#   osnrproj:
+#     sourcePath: /ms:OSNRPROJ
+#     type: OBJECT
+#     properties:
+#       id:
+#         sourcePath: gml:@id
+#         type: STRING
+#         role: ID
+#       msGeometry:
+#         sourcePath: ms:msGeometry
+#         type: GEOMETRY
+#         role: PRIMARY_GEOMETRY
+#         geometryType: ANY
+#       BFSNr:
+#         sourcePath: ms:BFSNr
+#         type: FLOAT
+#       NBIdent:
+#         sourcePath: ms:NBIdent
+#         type: STRING
+#       Nummer:
+#         sourcePath: ms:Nummer
+#         type: STRING
+#       Ori:
+#         sourcePath: ms:Ori
+#         type: FLOAT
+#       Loc:
+#         sourcePath: ms:Loc
+#         type: STRING
+#       Kanton:
+#         sourcePath: ms:Kanton
+#         type: STRING
+#   osnr:
+#     sourcePath: /ms:OSNR
+#     type: OBJECT
+#     properties:
+#       id:
+#         sourcePath: gml:@id
+#         type: STRING
+#         role: ID
+#       msGeometry:
+#         sourcePath: ms:msGeometry
+#         type: GEOMETRY
+#         role: PRIMARY_GEOMETRY
+#         geometryType: ANY
+#       BFSNr:
+#         sourcePath: ms:BFSNr
+#         type: FLOAT
+#       NBIdent:
+#         sourcePath: ms:NBIdent
+#         type: STRING
+#       Nummer:
+#         sourcePath: ms:Nummer
+#         type: STRING
+#       Ori:
+#         sourcePath: ms:Ori
+#         type: FLOAT
+#       Loc:
+#         sourcePath: ms:Loc
+#         type: STRING
+#       Kanton:
+#         sourcePath: ms:Kanton
+#         type: STRING
+#   dprsfproj:
+#     sourcePath: /ms:DPRSFPROJ
+#     type: OBJECT
+#     properties:
+#       id:
+#         sourcePath: gml:@id
+#         type: STRING
+#         role: ID
+#       msGeometry:
+#         sourcePath: ms:msGeometry
+#         type: GEOMETRY
+#         role: PRIMARY_GEOMETRY
+#         geometryType: ANY
+#       BFSNr:
+#         sourcePath: ms:BFSNr
+#         type: FLOAT
+#       NBIdent:
+#         sourcePath: ms:NBIdent
+#         type: STRING
+#       Nummer:
+#         sourcePath: ms:Nummer
+#         type: STRING
+#       EGRIS_EGRID:
+#         sourcePath: ms:EGRIS_EGRID
+#         type: STRING
+#       Vollstaendigkeit:
+#         sourcePath: ms:Vollstaendigkeit
+#         type: STRING
+#       Art:
+#         sourcePath: ms:Art
+#         type: STRING
+#       Flaeche:
+#         sourcePath: ms:Flaeche
+#         type: FLOAT
+#       Kanton:
+#         sourcePath: ms:Kanton
+#         type: STRING
+#   resfproj:
+#     sourcePath: /ms:RESFPROJ
+#     type: OBJECT
+#     properties:
+#       id:
+#         sourcePath: gml:@id
+#         type: STRING
+#         role: ID
+#       msGeometry:
+#         sourcePath: ms:msGeometry
+#         type: GEOMETRY
+#         role: PRIMARY_GEOMETRY
+#         geometryType: ANY
+#       BFSNr:
+#         sourcePath: ms:BFSNr
+#         type: FLOAT
+#       NBIdent:
+#         sourcePath: ms:NBIdent
+#         type: STRING
+#       Nummer:
+#         sourcePath: ms:Nummer
+#         type: STRING
+#       EGRIS_EGRID:
+#         sourcePath: ms:EGRIS_EGRID
+#         type: STRING
+#       Vollstaendigkeit:
+#         sourcePath: ms:Vollstaendigkeit
+#         type: STRING
+#       Flaeche:
+#         sourcePath: ms:Flaeche
+#         type: FLOAT
+#       Kanton:
+#         sourcePath: ms:Kanton
+#         type: STRING
+#   dprsf:
+#     sourcePath: /ms:DPRSF
+#     type: OBJECT
+#     properties:
+#       id:
+#         sourcePath: gml:@id
+#         type: STRING
+#         role: ID
+#       msGeometry:
+#         sourcePath: ms:msGeometry
+#         type: GEOMETRY
+#         role: PRIMARY_GEOMETRY
+#         geometryType: ANY
+#       BFSNr:
+#         sourcePath: ms:BFSNr
+#         type: FLOAT
+#       NBIdent:
+#         sourcePath: ms:NBIdent
+#         type: STRING
+#       Nummer:
+#         sourcePath: ms:Nummer
+#         type: STRING
+#       EGRIS_EGRID:
+#         sourcePath: ms:EGRIS_EGRID
+#         type: STRING
+#       Vollstaendigkeit:
+#         sourcePath: ms:Vollstaendigkeit
+#         type: STRING
+#       Art:
+#         sourcePath: ms:Art
+#         type: STRING
+#       Flaeche:
+#         sourcePath: ms:Flaeche
+#         type: FLOAT
+#       Kanton:
+#         sourcePath: ms:Kanton
+#         type: STRING
+#   resf:
+#     sourcePath: /ms:RESF
+#     type: OBJECT
+#     properties:
+#       id:
+#         sourcePath: gml:@id
+#         type: STRING
+#         role: ID
+#       msGeometry:
+#         sourcePath: ms:msGeometry
+#         type: GEOMETRY
+#         role: PRIMARY_GEOMETRY
+#         geometryType: ANY
+#       BFSNr:
+#         sourcePath: ms:BFSNr
+#         type: FLOAT
+#       NBIdent:
+#         sourcePath: ms:NBIdent
+#         type: STRING
+#       Nummer:
+#         sourcePath: ms:Nummer
+#         type: STRING
+#       EGRIS_EGRID:
+#         sourcePath: ms:EGRIS_EGRID
+#         type: STRING
+#       Vollstaendigkeit:
+#         sourcePath: ms:Vollstaendigkeit
+#         type: STRING
+#       Flaeche:
+#         sourcePath: ms:Flaeche
+#         type: FLOAT
+#       Kanton:
+#         sourcePath: ms:Kanton
+#         type: STRING
+#   mbsf:
+#     sourcePath: /ms:MBSF
+#     type: OBJECT
+#     properties:
+#       id:
+#         sourcePath: gml:@id
+#         type: STRING
+#         role: ID
+#       msGeometry:
+#         sourcePath: ms:msGeometry
+#         type: GEOMETRY
+#         role: PRIMARY_GEOMETRY
+#         geometryType: ANY
+#       BFSNr:
+#         sourcePath: ms:BFSNr
+#         type: FLOAT
+#       Name:
+#         sourcePath: ms:Name
+#         type: STRING
+#       Kanton:
+#         sourcePath: ms:Kanton
+#         type: STRING
+#   tbli:
+#     sourcePath: /ms:TBLI
+#     type: OBJECT
+#     properties:
+#       id:
+#         sourcePath: gml:@id
+#         type: STRING
+#         role: ID
+#       msGeometry:
+#         sourcePath: ms:msGeometry
+#         type: GEOMETRY
+#         role: PRIMARY_GEOMETRY
+#         geometryType: ANY
+#       Typ:
+#         sourcePath: ms:Typ
+#         type: STRING
+#       Gueltigkeit:
+#         sourcePath: ms:Gueltigkeit
+#         type: STRING
+#       Kanton:
+#         sourcePath: ms:Kanton
+#         type: STRING
+#   osbp:
+#     sourcePath: /ms:OSBP
+#     type: OBJECT
+#     properties:
+#       id:
+#         sourcePath: gml:@id
+#         type: STRING
+#         role: ID
+#       msGeometry:
+#         sourcePath: ms:msGeometry
+#         type: GEOMETRY
+#         role: PRIMARY_GEOMETRY
+#         geometryType: ANY
+#       BFSNr:
+#         sourcePath: ms:BFSNr
+#         type: FLOAT
+#       Gueltigkeit:
+#         sourcePath: ms:Gueltigkeit
+#         type: STRING
+#       Punktzeichen:
+#         sourcePath: ms:Punktzeichen
+#         type: STRING
+#       Kanton:
+#         sourcePath: ms:Kanton
+#         type: STRING
+#   cppt:
+#     sourcePath: /ms:CPPT
+#     type: OBJECT
+#     properties:
+#       id:
+#         sourcePath: gml:@id
+#         type: STRING
+#         role: ID
+#       msGeometry:
+#         sourcePath: ms:msGeometry
+#         type: GEOMETRY
+#         role: PRIMARY_GEOMETRY
+#         geometryType: ANY
+#       BFSNr:
+#         sourcePath: ms:BFSNr
+#         type: FLOAT
+#       Kategorie:
+#         sourcePath: ms:Kategorie
+#         type: STRING
+#       Nummer:
+#         sourcePath: ms:Nummer
+#         type: STRING
+#       Koordinate:
+#         sourcePath: ms:Koordinate
+#         type: STRING
+#       Hoehe:
+#         sourcePath: ms:Hoehe
+#         type: FLOAT
+#       Punktzeichen:
+#         sourcePath: ms:Punktzeichen
+#         type: STRING
+#       Kanton:
+#         sourcePath: ms:Kanton
+#         type: STRING
+#   tbbp:
+#     sourcePath: /ms:TBBP
+#     type: OBJECT
+#     properties:
+#       id:
+#         sourcePath: gml:@id
+#         type: STRING
+#         role: ID
+#       msGeometry:
+#         sourcePath: ms:msGeometry
+#         type: GEOMETRY
+#         role: PRIMARY_GEOMETRY
+#         geometryType: ANY
+#       BFSNr:
+#         sourcePath: ms:BFSNr
+#         type: FLOAT
+#       Gueltigkeit:
+#         sourcePath: ms:Gueltigkeit
+#         type: STRING
+#       Punktzeichen:
+#         sourcePath: ms:Punktzeichen
+#         type: STRING
+#       Kanton:
+#         sourcePath: ms:Kanton
+#         type: STRING

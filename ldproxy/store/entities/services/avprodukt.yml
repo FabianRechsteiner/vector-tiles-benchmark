@@ -1,0 +1,129 @@
+---
+id: avprodukt
+createdAt: 1708101679809
+lastModified: 1708101679809
+entityStorageVersion: 2
+label: avprodukt
+enabled: true
+metadata:
+  attribution: 'Amtliche Vermessung Thurgau'
+  keywords:
+  - Amtliche Vermessung
+serviceType: OGC_API
+apiValidation: NONE
+api:
+
+- buildingBlock: COLLECTIONS
+  additionalLinks:
+  - rel: describedby
+    type: application/pdf
+    title: Amtliche Vermessung
+    href: 'https://www.google.com'
+    hreflang: de
+  - rel: describedby
+    type: text/html
+    title: 3D-Stadtmodell LoD1-DE Hamburg im Transparenzportal der Stadt Hamburg
+    href: 'https://suche.transparenz.hamburg.de/dataset/3d-stadtmodell-lod1-de-hamburg5'
+    hreflang: de
+  - rel: enclosure
+    type: application/zip
+    title: Download 3D Stadtmodell, 2021 (CityGML, LoD1-DE)
+    href: 'https://daten-hamburg.de/geographie_geologie_geobasisdaten/3d_stadtmodell_lod1/LoD1-DE_HH_2021-04-01.zip'
+    length: 294196894
+
+- buildingBlock: HTML
+  legalName: Impressum
+  legalUrl: https://www.interactive-instruments.de/about/impressum/
+  privacyName: Datenschutz
+  privacyUrl: https://www.interactive-instruments.de/about/datenschutzerklarung/
+  footerText: Die APIs auf diesem Server sind nur für interne Testzwecke.
+  basemapUrl: https://sg.geodatenzentrum.de/wmts_topplus_open/tile/1.0.0/web_grau/default/WEBMERCATOR/{z}/{y}/{x}.png
+  basemapAttribution: '&copy; <a href="https://www.bkg.bund.de" target="_new">Bundesamt f&uuml;r Kartographie und Geod&auml;sie</a> 2017, <a href="https://sg.geodatenzentrum.de/web_public/Datenquellen_TopPlus_Open.pdf" target="_new">Datenquellen</a>'
+  collectionDescriptionsInOverview: true
+
+- buildingBlock: FEATURES_CORE
+  coordinatePrecision:
+    metre: 3
+    degree: 7
+- buildingBlock: QUERYABLES
+  enabled: true
+- buildingBlock: SCHEMA
+  enabled: true
+- buildingBlock: FILTER
+  enabled: true
+- buildingBlock: PROJECTIONS
+  enabled: true
+
+- buildingBlock: CRS
+  enabled: true
+  additionalCrs:
+  - code: 25832
+    forceAxisOrder: NONE
+  - code: 3857
+    forceAxisOrder: NONE
+  - code: 4258
+    forceAxisOrder: NONE
+  - code: 4326
+    forceAxisOrder: NONE
+  - code: 2056
+    forceAxisOrder: NONE
+
+- buildingBlock: TILES
+  tileProvider:
+    type: FEATURES
+    tileEncodings:
+    - MVT
+    zoomLevels:
+      WebMercatorQuad:
+        min: 0
+        max: 23
+    # seeding:
+    #   WebMercatorQuad:
+    #     min: 11
+    #     max: 13
+
+collections:
+  bo_boflaeche_mv:
+    id: bo_boflaeche_mv
+    label: bo_boflaeche_mv
+    enabled: true
+  bo_projgebaeude_mv:
+    id: bo_projgebaeude_mv
+    label: bo_projgebaeude_mv
+    enabled: true
+  dk_einzelpunkt_mv:
+    id: dk_einzelpunkt_mv
+    label: dk_einzelpunkt_mv
+    enabled: true
+  eo_flaechenelement_mv:
+    id: eo_flaechenelement_mv
+    label: eo_flaechenelement_mv
+    enabled: true
+  eo_linienelement_mv:
+    id: eo_linienelement_mv
+    label: eo_linienelement_mv
+    enabled: true
+  ga_strassenstueck_mv:
+    id: ga_strassenstueck_mv
+    label: ga_strassenstueck_mv
+    enabled: true
+  gg_gemeindegrenze_mv:
+    id: gg_gemeindegrenze_mv
+    label: gg_gemeindegrenze_mv
+    enabled: true
+  gg_hoheitsgrenzpunkt_mv:
+    id: gg_hoheitsgrenzpunkt_mv
+    label: gg_hoheitsgrenzpunkt_mv
+    enabled: true
+  li_grenzpunkt_mv:
+    id: li_grenzpunkt_mv
+    label: li_grenzpunkt_mv
+    enabled: true
+  li_liegenschaft_mv:
+    id: li_liegenschaft_mv
+    label: li_liegenschaft_mv
+    enabled: true
+  li_projliegenschaft_mv:
+    id: li_projliegenschaft_mv
+    label: li_projliegenschaft_mv
+    enabled: true

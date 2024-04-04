@@ -1,0 +1,30 @@
+---
+metadata:
+  contactName: Fabian Rechsteiner
+  contactEmail: '-'
+  licenseName: '-'
+  licenseUrl: '-'
+api:
+- buildingBlock: FOUNDATION
+  includeLinkHeader: true
+  useLangParameter: false
+  apiCatalogLabel: 'Verfügbare APIs'
+  apiCatalogDescription: 'Die folgenden APIs sind auf diesem Testserver verfügbar.'
+
+- buildingBlock: TILES
+  enabled: true
+  transformations:
+    '*':
+    - flatten: "."
+  tileSetEncodings:
+  - JSON
+  - TileJSON
+  cache: MBTILES
+
+- buildingBlock: TILE_MATRIX_SETS
+  enabled: true
+  includePredefined:
+  - WebMercatorQuad
+  - WorldCRS84Quad
+  - WorldMercatorWGS84Quad
+  - SwissLV95CellSizes

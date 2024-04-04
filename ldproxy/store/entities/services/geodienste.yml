@@ -1,0 +1,162 @@
+---
+id: geodienste
+entityStorageVersion: 2
+label: geodienste.ch
+description: Amtliche Vermessung von Geodienste.ch
+enabled: true
+serviceType: OGC_API
+api:
+- buildingBlock: FLATGEOBUF
+  enabled: false
+  transformations:
+    '*':
+    - flatten: .
+- buildingBlock: TILES
+  enabled: true
+  tileProvider:
+    type: FEATURES
+    tileEncodings:
+    - MVT
+    zoomLevels:
+      WebMercatorQuad:
+        min: 0
+        max: 23
+  transformations:
+    '*':
+    - flatten: .
+- buildingBlock: CSV
+  enabled: false
+  transformations:
+    '*':
+    - flatten: .
+- buildingBlock: TILE_MATRIX_SETS
+  enabled: true
+- buildingBlock: COLLECTIONS
+  additionalLinks:
+  - rel: describedby
+    type: application/pdf
+    title: geodienste.ch
+    href: 'https://www.geodienste.ch'
+    hreflang: de
+- buildingBlock: FEATURES_CORE
+  coordinatePrecision:
+    metre: 3
+    degree: 7
+- buildingBlock: QUERYABLES
+  enabled: true
+- buildingBlock: SCHEMA
+  enabled: true
+- buildingBlock: FILTER
+  enabled: true
+- buildingBlock: PROJECTIONS
+  enabled: true
+- buildingBlock: CRS
+  enabled: true
+  additionalCrs:
+  - code: 25832
+    forceAxisOrder: NONE
+  - code: 3857
+    forceAxisOrder: NONE
+  - code: 4258
+    forceAxisOrder: NONE
+  - code: 4326
+    forceAxisOrder: NONE
+  - code: 2056
+    forceAxisOrder: NONE
+collections:
+  plna:
+    id: plna
+    label: plna
+    enabled: true
+  plsf:
+    id: plsf
+    label: plsf
+    enabled: true
+  plli:
+    id: plli
+    label: plli
+    enabled: true
+  lcobj:
+    id: lcobj
+    label: lcobj
+    enabled: true
+  lcsf:
+    id: lcsf
+    label: Bodenbedeckung
+    enabled: true
+  lcsfproj:
+    id: lcsfproj
+    label: lcsfproj
+    enabled: true
+  soobj:
+    id: soobj
+    label: soobj
+    enabled: true
+  soli:
+    id: soli
+    label: soli
+    enabled: true
+  sosf:
+    id: sosf
+    label: sosf
+    enabled: true
+  sopt:
+    id: sopt
+    label: sopt
+    enabled: true
+  locpos:
+    id: locpos
+    label: locpos
+    enabled: true
+  hadr:
+    id: hadr
+    label: hadr
+    enabled: true
+  lnna:
+    id: lnna
+    label: lnna
+    enabled: true
+  osnrproj:
+    id: osnrproj
+    label: osnrproj
+    enabled: true
+  osnr:
+    id: osnr
+    label: osnr
+    enabled: true
+  dprsfproj:
+    id: dprsfproj
+    label: dprsfproj
+    enabled: true
+  resfproj:
+    id: resfproj
+    label: resfproj
+    enabled: true
+  dprsf:
+    id: dprsf
+    label: dprsf
+    enabled: true
+  resf:
+    id: resf
+    label: resf
+    enabled: true
+  mbsf:
+    id: mbsf
+    label: Gemeindegrenzen
+    enabled: true
+  tbli:
+    id: tbli
+    label: tbli
+    enabled: true
+  osbp:
+    id: osbp
+    label: osbp
+    enabled: true
+  cppt:
+    id: cppt
+    label: cppt
+    enabled: true
+  tbbp:
+    id: tbbp
+    label: tbbp
+    enabled: true

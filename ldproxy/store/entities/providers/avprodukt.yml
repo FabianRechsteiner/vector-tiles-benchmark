@@ -1,0 +1,211 @@
+---
+id: avprodukt
+entityStorageVersion: 2
+createdAt: 1708101679119
+lastModified: 1708101679119
+providerType: FEATURE
+providerSubType: SQL
+nativeCrs:
+  code: 2056
+  forceAxisOrder: NONE
+connectionInfo:
+  connectorType: SLICK
+  database: ${POSTGRES_DB}
+  host: ${POSTGRES_HOST}
+  user: ${POSTGRES_USER}
+  password: ${POSTGRES_USER_PASSWORD_BASE64}
+  schemas:
+  - avprodukt
+  pool:
+    maxConnections: 200
+    # minConnections: 1
+    initFailFast: true
+    # initFailTimeout: 1
+    idleTimeout: 10m
+    shared: false
+sourcePathDefaults:
+  primaryKey: objectid
+  sortKey: objectid
+types:
+  bo_boflaeche_mv:
+    label: Bodenbedeckung
+    description: 'Bodenbedeckung der Amtlichen Vermessung.'
+    sourcePath: /bo_boflaeche_mv
+    properties:
+      objectid:
+        sourcePath: objectid
+        type: INTEGER
+        role: ID
+      art:
+        sourcePath: art
+        type: STRING
+      wkb_geometry:
+        sourcePath: wkb_geometry
+        type: GEOMETRY
+        role: PRIMARY_GEOMETRY
+        geometryType: POLYGON
+  bo_projgebaeude_mv:
+    sourcePath: /bo_projgebaeude_mv
+    properties:
+      objectid:
+        sourcePath: objectid
+        type: INTEGER
+        role: ID
+      wkb_geometry:
+        sourcePath: wkb_geometry
+        type: GEOMETRY
+        role: PRIMARY_GEOMETRY
+        geometryType: POLYGON
+  dk_einzelpunkt_mv:
+    sourcePath: /dk_einzelpunkt_mv
+    properties:
+      objectid:
+        sourcePath: objectid
+        type: INTEGER
+        role: ID
+      punktzeichen:
+        sourcePath: punktzeichen
+        type: STRING
+      wkb_geometry:
+        sourcePath: wkb_geometry
+        type: GEOMETRY
+        role: PRIMARY_GEOMETRY
+        geometryType: POINT
+  eo_flaechenelement_mv:
+    sourcePath: /eo_flaechenelement_mv
+    properties:
+      objectid:
+        sourcePath: objectid
+        type: INTEGER
+        role: ID
+      art:
+        sourcePath: art
+        type: STRING
+      wkb_geometry:
+        sourcePath: wkb_geometry
+        type: GEOMETRY
+        role: PRIMARY_GEOMETRY
+        geometryType: POLYGON
+  eo_linienelement_mv:
+    sourcePath: /eo_linienelement_mv
+    properties:
+      objectid:
+        sourcePath: objectid
+        type: INTEGER
+        role: ID
+      art:
+        sourcePath: art
+        type: STRING
+      wkb_geometry:
+        sourcePath: wkb_geometry
+        type: GEOMETRY
+        role: PRIMARY_GEOMETRY
+        geometryType: LINE_STRING
+  ga_strassenstueck_mv:
+    sourcePath: /ga_strassenstueck_mv
+    properties:
+      objectid:
+        sourcePath: objectid
+        type: INTEGER
+        role: ID
+      lokname_text:
+        sourcePath: lokname_text
+        type: STRING
+      loknamepos_ori:
+        sourcePath: loknamepos_ori
+        type: FLOAT
+      loknamepos_lkoordx:
+        sourcePath: loknamepos_lkoordx
+        type: FLOAT
+      loknamepos_lkoordy:
+        sourcePath: loknamepos_lkoordy
+        type: FLOAT
+      wkb_geometry:
+        sourcePath: wkb_geometry
+        type: GEOMETRY
+        role: PRIMARY_GEOMETRY
+        geometryType: LINE_STRING
+  gg_gemeindegrenze_mv:
+    sourcePath: /gg_gemeindegrenze_mv
+    properties:
+      objectid:
+        sourcePath: objectid
+        type: INTEGER
+        role: ID
+      gemeinde_name:
+        sourcePath: gemeinde_name
+        type: STRING
+      gemeinde_bfsnr:
+        sourcePath: gemeinde_bfsnr
+        type: INTEGER
+      wkb_geometry:
+        sourcePath: wkb_geometry
+        type: GEOMETRY
+        role: PRIMARY_GEOMETRY
+        geometryType: POLYGON
+  gg_hoheitsgrenzpunkt_mv:
+    sourcePath: /gg_hoheitsgrenzpunkt_mv
+    properties:
+      objectid:
+        sourcePath: objectid
+        type: INTEGER
+        role: ID
+      punktzeichen:
+        sourcePath: punktzeichen
+        type: STRING
+      wkb_geometry:
+        sourcePath: wkb_geometry
+        type: GEOMETRY
+        role: PRIMARY_GEOMETRY
+        geometryType: POINT
+  li_grenzpunkt_mv:
+    sourcePath: /li_grenzpunkt_mv
+    properties:
+      objectid:
+        sourcePath: objectid
+        type: INTEGER
+        role: ID
+      punktzeichen:
+        sourcePath: punktzeichen
+        type: STRING
+      wkb_geometry:
+        sourcePath: wkb_geometry
+        type: GEOMETRY
+        role: PRIMARY_GEOMETRY
+        geometryType: POINT
+  li_liegenschaft_mv:
+    sourcePath: /li_liegenschaft_mv
+    properties:
+      objectid:
+        sourcePath: objectid
+        type: INTEGER
+        role: ID
+      gs_nummer:
+        sourcePath: gs_nummer
+        type: STRING
+      gs_egris_egrid:
+        sourcePath: gs_egris_egrid
+        type: STRING
+      wkb_geometry:
+        sourcePath: wkb_geometry
+        type: GEOMETRY
+        role: PRIMARY_GEOMETRY
+        geometryType: POLYGON
+  li_projliegenschaft_mv:
+    sourcePath: /li_projliegenschaft_mv
+    properties:
+      objectid:
+        sourcePath: objectid
+        type: INTEGER
+        role: ID
+      projgs_nummer:
+        sourcePath: projgs_nummer
+        type: STRING
+      projgs_egris_egrid:
+        sourcePath: projgs_egris_egrid
+        type: STRING
+      wkb_geometry:
+        sourcePath: wkb_geometry
+        type: GEOMETRY
+        role: PRIMARY_GEOMETRY
+        geometryType: POLYGON
