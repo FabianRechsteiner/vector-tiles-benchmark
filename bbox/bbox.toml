@@ -1,0 +1,114 @@
+# -- webserver settings --
+[webserver]
+# Environment variable prefix: BBOX_WEBSERVER__
+server_addr = "127.0.0.1:8804"  # Default: 127.0.0.1:8080
+# worker_threads = 4  # Default: number of CPU cores
+
+# -- Feature-Server --
+# -- datasources --
+[[datasource]]
+name = "postgres"
+[datasource.postgis]
+url = "postgresql://@postgis/" #postgresql://user_name:user_password@postgis/postgres_db
+
+# -- collections with auto discovery --
+[[collections.postgis]]
+url = "postgresql://@postgis/" #postgresql://user_name:user_password@postgis/postgres_db
+[[collections.directory]]
+dir = "../assets"
+
+# -- Tile-Server --
+# -- custom tile grids --
+[[grid]]
+json = "../assets/SwissLV95CellSizes.json"
+
+# -- vector tiles from PostGIS table --
+[[tileset]]
+name = "bo_boflaeche_mv"
+# tms = "SwissLV95CellSizes"
+[tileset.postgis]
+datasource = "postgres"
+attribution = "Bodenbedeckung Amtliche Vermessung Thurgau"
+
+[[tileset.postgis.layer]]
+name = "bo_boflaeche_mv"
+table_name = "avprodukt.bo_boflaeche_mv"
+geometry_type = "POLYGON"
+geometry_field = "wkb_geometry"
+fid_field = "objectid"
+srid = 2056
+
+[[tileset]]
+name = "gg_gemeindegrenze_mv"
+# tms = "SwissLV95CellSizes"
+[tileset.postgis]
+datasource = "postgres"
+attribution = "Gemeindegrenzen"
+
+[[tileset.postgis.layer]]
+name = "gg_gemeindegrenze_mv"
+table_name = "avprodukt.gg_gemeindegrenze_mv"
+geometry_type = "POLYGON"
+geometry_field = "wkb_geometry"
+fid_field = "objectid"
+srid = 2056
+
+[[tileset]]
+name = "li_liegenschaft_mv"
+# tms = "SwissLV95CellSizes"
+[tileset.postgis]
+datasource = "postgres"
+attribution = "Liegenschaften"
+
+[[tileset.postgis.layer]]
+name = "li_liegenschaft_mv"
+table_name = "avprodukt.li_liegenschaft_mv"
+geometry_type = "POLYGON"
+geometry_field = "wkb_geometry"
+fid_field = "objectid"
+srid = 2056
+
+[[tileset]]
+name = "li_grenzpunkt_mv"
+# tms = "SwissLV95CellSizes"
+[tileset.postgis]
+datasource = "postgres"
+attribution = "Grenzpunkte"
+
+[[tileset.postgis.layer]]
+name = "li_grenzpunkt_mv"
+table_name = "avprodukt.li_grenzpunkt_mv"
+geometry_type = "POINT"
+geometry_field = "wkb_geometry"
+fid_field = "objectid"
+srid = 2056
+
+[[tileset]]
+name = "eo_linienelement_mv"
+# tms = "SwissLV95CellSizes"
+[tileset.postgis]
+datasource = "postgres"
+attribution = "Einzelobjekte (Linienelemente)"
+
+[[tileset.postgis.layer]]
+name = "eo_linienelement_mv"
+table_name = "avprodukt.eo_linienelement_mv"
+geometry_type = "LINE"
+geometry_field = "wkb_geometry"
+fid_field = "objectid"
+srid = 2056
+
+[[tileset]]
+name = "bo_projgebaeude_mv"
+# tms = "SwissLV95CellSizes"
+[tileset.postgis]
+datasource = "postgres"
+attribution = "Projektierte Gebäude"
+
+[[tileset.postgis.layer]]
+name = "bo_projgebaeude_mv"
+table_name = "avprodukt.bo_projgebaeude_mv"
+geometry_type = "POLYGON"
+geometry_field = "wkb_geometry"
+fid_field = "objectid"
+srid = 2056
