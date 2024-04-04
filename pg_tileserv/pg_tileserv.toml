@@ -1,0 +1,88 @@
+
+# pg_tileserv
+
+# Database connection
+# postgresql://username:password@host/dbname
+# DbConnection = "postgresql://username:password@host/dbname"
+
+# Close pooled connections after this interval
+# 1d, 1h, 1m, 1s, see https://golang.org/pkg/time/#ParseDuration
+# DbPoolMaxConnLifeTime = "1h"
+
+# Hold no more than this number of connections in the database pool
+DbPoolMaxConns = 200
+
+# Cancel a tile request if a tile can't be rendered in this time (seconds)
+# DbTimeout = 10
+
+# Look to read html templates from this directory
+# AssetsPath = "/usr/share/pg_tileserv/assets"
+
+# Accept connections on this subnet (default accepts on all)
+# HttpHost = "0.0.0.0"
+
+# Accept connections on this port
+# HttpPort = 7800
+# HttpsPort = 7801
+
+# HTTPS configuration - TLS server certificate full chain and key
+# If you do not specify these, the TLS server will not be started
+# To generate self-signed key pair for testing,
+#  openssl req  -nodes -new -x509  -keyout server.key -out server.crt
+# TlsServerCertificateFile = "server.crt"
+# TlsServerPrivateKeyFile = "server.key"
+
+# Cache control configuration. TTL is time in seconds to request
+# that responses be cached by any downstream caching services.
+# Zero means no cache control header will be set.
+# CacheTTL = 0
+
+# Advertise URLs relative to this server name
+# default is to look this up from incoming request headers
+# UrlBase = "http://localhost/"
+
+# Optional path to add to the service base URL
+# If set, all routes will be prefixed with this path
+# BasePath = "/"
+
+# Resolution to quantize vector tiles to
+# DefaultResolution = 4096
+
+# Padding to add to vector tiles
+# DefaultBuffer = 256
+
+# Limit number of features requested (-1 = no limit)
+MaxFeaturesPerTile = 10000
+
+# Advertise this minimum zoom level
+# DefaultMinZoom = 14
+
+# Advertise this maximum zoom level
+# DefaultMaxZoom = 22
+
+# Allow any page to consume these tiles (default)
+# To specify domain(s) that should be CORS-allowed, express them as ["https://mydomain.com", "https://anotherdomain.org"]
+# CORSOrigins = ["*"]
+
+# Output extra logging information?
+# Debug = false
+
+# Enable Prometheus metrics
+# Metrics will be exported at `/metrics`.
+# EnableMetrics = false
+
+# Default CS is Web Mercator (EPSG:3857)
+# [CoordinateSystem]
+# SRID = 3857
+# Xmin = -20037508.3427892
+# Ymin = -20037508.3427892
+# Xmax = 20037508.3427892
+# Ymax = 20037508.3427892
+
+# "True" Mercator (EPSG:3395) is only a little different
+# [CoordinateSystem]
+# SRID = 3395
+# Xmin = -20037508.342789244
+# Ymin = -20037508.342789244
+# Xmax = 20037508.342789244
+# Ymax = 20037508.342789244
