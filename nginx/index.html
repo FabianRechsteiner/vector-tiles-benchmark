@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Vectormap</title>
+    <meta property="og:description" content="Vector Tiles Amtliche Vermessung Thurgau" />
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' href='https://unpkg.com/maplibre-gl@4.1.2/dist/maplibre-gl.css' />
+    <script src='https://unpkg.com/maplibre-gl@4.1.2/dist/maplibre-gl.js'></script>
+
+    <style>
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 10px;
+        }
+
+        .map-container {
+            position: relative;
+            height: calc((100vh - 90px) / 2);
+        }
+
+        .map-container h2 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            background-color: #fff;
+            margin: 0;
+            padding: 5px;
+        }
+
+        #layer-control-container {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        #layer-control label {
+            display: inline-flex;
+            align-items: center;
+            margin-right: 20px;
+        }
+
+        #layer-control input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        #map-style-selector {
+            margin-top: auto;
+            margin-left: auto;
+            margin-right: 0;
+            margin-bottom: 10px;
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 20;
+            padding: 0;
+            background-color: #f1f1f1;
+            overflow: hidden;
+        }
+
+        li {
+            float: left;
+        }
+
+        li a {
+            display: block;
+            color: #000;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="layer-control-container">
+        <div id="layer-control">
+            <label>
+                <input type="checkbox" id="bo_boflaeche_mv" name="Bodenbedeckung" checked>
+                Bodenbedeckung
+            </label>
+            <label>
+                <input type="checkbox" id="gg_gemeindegrenze_mv" name="Gemeindegrenze" checked>
+                Gemeindegrenze
+            </label>
+            <label>
+                <input type="checkbox" id="li_liegenschaft_mv" name="Liegenschaften" checked>
+                Liegenschaften
+            </label>
+            <label>
+                <input type="checkbox" id="li_grenzpunkt_mv" name="Grenzpunkte" checked>
+                Grenzpunkte
+            </label>
+            <label>
+                <input type="checkbox" id="eo_linienelement_mv" name="Einzelobjekte (Linien)" checked>
+                Einzelobjekte (Linien)
+            </label>
+            <label>
+                <input type="checkbox" id="bo_projgebaeude_mv" name="Projektierte Gebäude" checked>
+                Projektierte Gebäude
+            </label>
+            <select id="map-style-selector">
+                <option value="https://api.maptiler.com/maps/streets/style.json?key=ZSYofwXTrLbPGfAjpLHh">Streets</option>
+                <option value="https://api.maptiler.com/maps/topographique/style.json?key=ZSYofwXTrLbPGfAjpLHh">
+                    Topographique</option>
+                <option value="https://vectortiles.geo.admin.ch/styles/ch.swisstopo.leichte-basiskarte.vt/style.json">Light
+                    Base Map</option>
+            </select>
+        </div>
+        
+
+    </div>
+
+    <div class="grid-container">
+        <div id="map1" class="map-container">
+            <h2><a href="/bbox" target="_blank">BBOX</a></h2>
+        </div>
+        <div id="map2" class="map-container">
+            <h2><a href="/ldproxy" target="_blank">ldproxy</a></h2>
+        </div>
+        <div id="map3" class="map-container">
+            <h2><a href="/martin/catalog" target="_blank">Martin</a></h2>
+        </div>
+        <div id="map4" class="map-container">
+            <h2><a href="/pg_tileserv" target="_blank">pg_tileserv</a></h2>
+        </div>
+        <div id="map5" class="map-container">
+            <h2><a href="/tegola" target="_blank">Tegola</a></h2>
+        </div>
+        <div id="map6" class="map-container">
+            <h2><a href="/tipg" target="_blank">TiPG</a></h2>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+
+</body>
+
+</html>
