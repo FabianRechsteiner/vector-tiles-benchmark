@@ -2,7 +2,6 @@ postgis-data
 ldproxy/*
 !ldproxy/api-resources/tile-matrix-sets
 !ldproxy/store
-*.sql
 *.env
 !tipg/.env
 nginx/nginx.conf
