@@ -21,7 +21,31 @@ To ensure a consistent evaluation of performance across different server solutio
 In addition to the 6 primary applications, I set up two supplementary containers: 'nginx' served as a web server facilitating external access to the applications and accompanying HTML files, while the 'maputnik' container functioned as a vector tile style editor for defining the visual representation of the vector tiles."
 ![image](https://github.com/FabianRechsteiner/vector-tiles-benchmark/assets/43602650/e61389f7-41a2-49c2-9231-082fb455bb86)
 
-## Overwiew vectir-tiles server
+## Overview vector-tiles-server
+
+| **Name**                    | BBOX                                              | ldproxy                                              | Martin                                               | pg_tileserv                               | Tegola                                 | TiPg                        |
+|-----------------------------|---------------------------------------------------|------------------------------------------------------|------------------------------------------------------|-------------------------------------------|----------------------------------------|-----------------------------|
+| **Developer**               | [Sourcepole]                                      | [interactive instruments]                            | [MapLibre]                                           | [CrunchyData]                             | [Go Spatial]                           | [Development Seed]          |
+| **Programming Language**    | Rust                                              | Java                                                 | Rust                                                 | Go                                        | Go                                     | Python                      |
+| **Source Formats**          | PostGIS, MBTiles, PMTiles                         | HTTP, MBTiles, PostGIS, GPKG, SQLite, WFS, (GraphQL) | HTTP, MBTiles, PostGIS, GPKG, SQLite, WFS, (GraphQL) | PostGIS                                   | PostGIS, GPKG, SAP HANA Spatial        | PostGIS                     |
+| **Output Data Format**      | MVT, MBTiles, PMTiles                             | MVT, MBTiles                                         | MVT, MBTiles                                         | MVT                                       | MVT                                    | MVT                         |
+| **Creation Method**         | ST_AsMVT                                          | Feature Provider                                     | ST_AsMVT                                             | ST_AsMVT                                  | ST_AsMVT                               | ST_AsMVT                    |
+| **Supported Tile Schemas**  | WebMercatorQuad (3857)      Benutzerdefiniert     | WebMercatorQuad (3857)      Benutzerdefiniert        | WebMercatorQuad (3857)                               | WebMercatorQuad (3857)                    | WebMercatorQuad (3857)                 | WebMercatorQuad (3857)      Benutzerdefiniert |
+| **Filter Functions**        | ✔️                                                | ✔️                                                  | ✔️                                                   | ✔️                                       | ✔️                                     | ✔️                         |
+| **Multi-Layer-Tiles**       | ✔️                                                | ❌                                                  | ✔️                                                   | ✔️                                       | ✔️                                     | ❌                         |
+| **Caching**                 | ✔️                                                | ✔️                                                  | ✔️                                                   | ❌                                       | ✔️                                     | ❌                         |
+| **OGC-API Features**        | ✔️                                                | ✔️                                                  | ❌                                                   | ❌                                       | ❌                                     | ✔️                         |
+| **GitHub**                  | (BBOX - GitHub 2024)                              | (ldproxy - GitHub 2024)                              | (Martin - GitHub 2024)                               | (pg_tileserv - GitHub 2024)               | (Tegola - GitHub 2024)                 | (Tipg - GitHub 2024)        |
+| **Docker Image**            | (sourcepole/bbox-server-qgis - Docker Image 2024) | (iide/ldproxy - Docker Image 2024)                   | (martin - Docker Image 2024)                         | (pramsey/pg_tileserv - Docker Image 2024) | (gospatial/tegola - Docker Image 2024) | (tipg - Docker Image 2024)  |
+| **Additional Documentation**| (Kalberer 2024a)                                  | (ldproxy - Documentation 2024)                       | (Martin - Documentation 2024)                        | (pg_tileserv - Documentation 2023)        | (Tegola - Documentation 2017)          | (Tipg - Documentation 2024) |
+
+
+[Sourcepole]:https://sourcepole.ch/
+[interactive instruments]:https://www.interactive-instruments.de/
+[MapLibre]:https://maplibre.org/
+[CrunchyData]:https://www.crunchydata.com/
+[Go Spatial]:https://github.com/go-spatial
+[Development Seed]:https://developmentseed.org/
 
 ## mvt-benchmark
 
