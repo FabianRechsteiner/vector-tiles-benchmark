@@ -35,17 +35,41 @@ In addition to the 6 primary applications, I set up two supplementary containers
 | **Multi-Layer-Tiles**       | ✔️                                                | ❌                                                  | ✔️                                                   | ✔️                                       | ✔️                                     | ❌                         |
 | **Caching**                 | ✔️                                                | ✔️                                                  | ✔️                                                   | ❌                                       | ✔️                                     | ❌                         |
 | **OGC-API Features**        | ✔️                                                | ✔️                                                  | ❌                                                   | ❌                                       | ❌                                     | ✔️                         |
-| **GitHub**                  | (BBOX - GitHub 2024)                              | (ldproxy - GitHub 2024)                              | (Martin - GitHub 2024)                               | (pg_tileserv - GitHub 2024)               | (Tegola - GitHub 2024)                 | (Tipg - GitHub 2024)        |
-| **Docker Image**            | (sourcepole/bbox-server-qgis - Docker Image 2024) | (iide/ldproxy - Docker Image 2024)                   | (martin - Docker Image 2024)                         | (pramsey/pg_tileserv - Docker Image 2024) | (gospatial/tegola - Docker Image 2024) | (tipg - Docker Image 2024)  |
-| **Additional Documentation**| (Kalberer 2024a)                                  | (ldproxy - Documentation 2024)                       | (Martin - Documentation 2024)                        | (pg_tileserv - Documentation 2023)        | (Tegola - Documentation 2017)          | (Tipg - Documentation 2024) |
+| **GitHub**                  | [BBOX - GitHub]                                   | [ldproxy - GitHub]                                   | [Martin - GitHub]                                    | [pg_tileserv - GitHub]                    | [Tegola - GitHub]                      | [Tipg - GitHub]             |
+| **Docker Image**            | [sourcepole/bbox-server-qgis - Docker Image]      | [iide/ldproxy - Docker Image]                        | [martin - Docker Image]                              | [pramsey/pg_tileserv - Docker Image]      | [gospatial/tegola - Docker Image]      | [tipg - Docker Image]       |
+| **Additional Documentation**| [BBOX - Documentation]                            | [ldproxy - Documentation]                            | [Martin - Documentation]                             | [pg_tileserv - Documentation]             | [Tegola - Documentation]               | [Tipg - Documentation]      |
 
-
+<!-- Delevoper Links-->
 [Sourcepole]:https://sourcepole.ch/
 [interactive instruments]:https://www.interactive-instruments.de/
 [MapLibre]:https://maplibre.org/
 [CrunchyData]:https://www.crunchydata.com/
 [Go Spatial]:https://github.com/go-spatial
 [Development Seed]:https://developmentseed.org/
+
+<!-- GitHub Links-->
+[BBOX - GitHub]:https://github.com/bbox-services/bbox
+[ldproxy - GitHub]:https://github.com/interactive-instruments/ldproxy
+[Martin - GitHub]:https://github.com/maplibre/martin 
+[pg_tileserv - GitHub]:https://github.com/CrunchyData/pg_tileserv
+[Tegola - GitHub]:https://github.com/go-spatial/tegola
+[Tipg - GitHub]:https://github.com/developmentseed/tipg
+
+<!-- Docker Image Links-->
+[sourcepole/bbox-server-qgis - Docker Image]:https://hub.docker.com/r/sourcepole/bbox-server-qgis
+[iide/ldproxy - Docker Image]:https://hub.docker.com/r/iide/ldproxy
+[martin - Docker Image]:https://github.com/maplibre/martin/pkgs/container/martin
+[pramsey/pg_tileserv - Docker Image]:https://hub.docker.com/r/pramsey/pg_tileserv
+[gospatial/tegola - Docker Image]:https://hub.docker.com/r/gospatial/tegola
+[tipg - Docker Image]:https://github.com/developmentseed/tipg/pkgs/container/tipg
+
+<!-- Documentation Links-->
+[BBOX - Documentation]:https://www.bbox.earth/
+[ldproxy - Documentation]:https://docs.ldproxy.net/
+[Martin - Documentation]:https://maplibre.org/martin/
+[pg_tileserv - Documentation]:https://access.crunchydata.com/documentation/pg_tileserv
+[Tegola - Documentation]:https://tegola.io/documentation/
+[Tipg - Documentation]:https://developmentseed.org/tipg/
 
 ## mvt-benchmark
 
