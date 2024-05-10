@@ -12,14 +12,21 @@ The following requirements must be met:
 The introduction of the new OGC API family marks a milestone in the exchange of geodata over the web. With the OGC API Tiles standard, both raster and vector data can now be provided as tiles, with vector data no longer being transmitted as images, but as geometry to the client. In this master's thesis, six open-source vector tiles servers (BBOX, Ldproxy, Martin, pg_tileserv, Tegola, and TiPg) are set up and configured using Docker in a public cloud. Vector tiles are created for each server from the vector data of the PostGIS database. Various test scenarios with Apache JMeter are used to determine which server can deliver the vector tiles the fastest. The results of the performance test show clear differences in the performance of the servers. One server proved to be by far the fastest, while another was clearly the slowest across all test scenarios. Additionally, a website is created using Maplibre GL JS to visually illustrate and compare the results. This master's thesis underscores the enormous potential and advantages of the new OGC API standards as well as vector tiles and aims to motivate geodata providers to offer their data according to these standards in the future.
 
 ## Methodology
+<img align="right" width="50%" src="https://github.com/FabianRechsteiner/vector-tiles-benchmark/assets/43602650/e61389f7-41a2-49c2-9231-082fb455bb86">
 
 
-"For the performance testing of vector tile server solutions, I utilized the cantonal geodata sourced from the 'Amt für Geoinformation Thurgau' as our test dataset. This dataset encompasses various tables stored within a PostGIS database.
+For the performance testing of vector tile server solutions, I utilized the cantonal geodata sourced from the [Amt für Geoinformation Thurgau](https://geoinformation.tg.ch/) as our test dataset. This dataset encompasses various tables stored within a PostGIS database.
 
 To ensure a consistent evaluation of performance across different server solutions, I employed the same PostGIS database as the data source for each solution. To achieve this, I established a public cloud infrastructure through the Swiss cloud provider Infomaniak, deploying a Linux instance. A Linux server was then configured to host various applications within separate Docker containers. The foundational data was stored in its dedicated Docker container named 'postgis'. Each vector tile server under scrutiny was encapsulated within its own Docker container, accessible via individual ports.
 
-In addition to the 6 primary applications, I set up two supplementary containers: 'nginx' served as a web server facilitating external access to the applications and accompanying HTML files, while the 'maputnik' container functioned as a vector tile style editor for defining the visual representation of the vector tiles."
-![image](https://github.com/FabianRechsteiner/vector-tiles-benchmark/assets/43602650/e61389f7-41a2-49c2-9231-082fb455bb86)
+In addition to the 6 primary applications, I set up two supplementary containers: 'nginx' served as a web server facilitating external access to the applications and accompanying HTML files, while the 'maputnik' container functioned as a vector tile style editor for defining the visual representation of the vector tiles.
+</br>
+</br>
+</br>
+</br>
+</br>
+
+
 
 ## Overview vector-tiles-server
 
