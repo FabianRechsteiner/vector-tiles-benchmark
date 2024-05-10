@@ -260,3 +260,20 @@ Open collections in the webbrowser (List of all sources): http://localhost:8080/
 Vector Tiles Request (Example: bo_boflaeche_mv):
 `http://localhost:8080/collections/avprodukt.bo_boflaeche_mv/tiles/WebMercatorQuad/{z}/{x}/{y}` 
 `http://localhost:8080/bo_boflaeche_mv,bo_projgebaeude_mv/{z}/{x}/{y}` 
+
+
+## Performancetest with Apchae JMeter
+
+Apache JMeter is a powerful open-source tool used for testing the performance of web applications, APIs, and other services. It enables developers and testers to conduct various types of tests to evaluate the performance, scalability, and stability of their applications. With Apache JMeter, users can perform load tests, stress tests, throughput tests, behavioral and functional tests, and more. The tool can simulate a large number of users accessing the application simultaneously and records metrics such as response times, throughput, CPU usage, and errors to assess the application's performance under different conditions. Additionally, JMeter provides a user-friendly graphical interface for configuring test scenarios and is known for its scalability and flexibility.
+
+To use Apache JMeter in graphical mode, the software is downloaded from its official website, and then the 'jmeter.bat' file is launched. In this mode, various test scenarios can be defined and executed. However, it is strongly recommended to perform the performance test not in GUI mode but in CLI mode (also known as Non-GUI mode).
+
+To test all servers under as similar conditions as possible, a separate test plan is created for each server. This test plan contains all configurations and steps executed during the test. Such a test plan consists of various elements, including Thread Group, Logic Controller, Sampler, Listener, Timer, and Configurations.
+
+The Thread Group forms the top-level element in the hierarchical structure of each test plan. Here, various parameters can be set that apply to the subsequent elements within this group. For example, the "Number of Threads (users)" parameter can be defined to specify how many virtual users simultaneously send requests to the server.
+
+Below the Thread Group, Logic Controller elements are defined to control how requests are sent to the server. Within these Logic Controller elements, Samplers can be created to represent the corresponding server requests, such as HTTP requests.
+
+Listeners can be placed at any point in the hierarchical structure to visualize the statistical data collected during the test. This can be done in the form of tables, graphs, or summary reports.
+
+For each server, a test plan has been created and executed sequentially in CLI mode. The test plans are stored in the subdirectory [vector-tiles-benchmark/test_plans](/vector-tiles-benchmark/test_plans).
