@@ -123,8 +123,13 @@ BBOX is a Webserver created by [Sourcepole](https://sourcepole.ch) and is a new 
 
 [GitHub](https://github.com/sourcepole/bbox)
 
+Start Server:
 ```yml
 docker compose --profile bbox up -d
+``` 
+Stop Server:
+```yml
+docker compose --profile bbox down
 ``` 
 Note:  `-d` `--detach` Detached mode: Run containers in the background 
 Without the parameter the log-File will be shown in the Terminal
