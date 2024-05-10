@@ -282,3 +282,21 @@ Below the Thread Group, Logic Controller elements are defined to control how req
 Listeners can be placed at any point in the hierarchical structure to visualize the statistical data collected during the test. This can be done in the form of tables, graphs, or summary reports.
 
 For each server, a test plan has been created and executed sequentially in CLI mode. The test plans are stored in the subdirectory [vector-tiles-benchmark/test_plans](/vector-tiles-benchmark/test_plans).
+
+## Results
+
+![image](https://github.com/FabianRechsteiner/vector-tiles-benchmark/assets/43602650/7ca7094c-6dab-4300-ba13-2554029e9644)
+
+The bar chart illustrates the wide range of response times per server. Across all test scenarios, the Martin server showed the fastest performance in serving the tiles. For all servers, tile requests took the longest in test scenario 2. It is noticeable that the response times of the servers vary significantly in most test scenarios, except for test 3. For example, in test 1, the values ranged from 95 to 4153 milliseconds, while the differences in test 2 were even greater, with values between 122 and 8754 milliseconds.
+
+Throughout all tests, the BBOX and Tegola servers showed a maximum response time difference of 41 milliseconds, indicating very similar response times. The Martin server delivered the tiles two to three times faster than the second fastest server. LdProxy took 4 to 70 times longer than Martin to deliver the tiles.
+
+With the exception of test 3, the following server ranking can be established for all test scenarios:
+
+1. Martin
+2. Tegola
+3. BBOX
+4. Pg_tileserv
+5. TiPg
+6. Ldproxy
+
