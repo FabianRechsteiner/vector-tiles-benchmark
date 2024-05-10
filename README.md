@@ -300,3 +300,10 @@ With the exception of test 3, the following server ranking can be established fo
 5. TiPg
 6. Ldproxy
 
+
+### Visual Performancetest
+[![Visual Performancetest]](https://github.com/FabianRechsteiner/vector-tiles-benchmark/assets/43602650/cb9df8c3-0847-4965-b853-1a2a60363b5e)
+
+Try it yourself: www.vectormap.ch
+
+The HTML and Javascript files are stored in the directory [nginx](/nginx).
