@@ -17,7 +17,7 @@ The introduction of the new OGC API family marks a milestone in the exchange of 
 
 For the performance testing of vector tile server solutions, I utilized the cantonal geodata sourced from the [Amt für Geoinformation Thurgau](https://geoinformation.tg.ch/) as our test dataset. This dataset encompasses various tables stored within a PostGIS database.
 
-To ensure a consistent evaluation of performance across different server solutions, I employed the same PostGIS database as the data source for each solution. To achieve this, I established a public cloud infrastructure through the Swiss cloud provider Infomaniak, deploying a Linux instance. A Linux server was then configured to host various applications within separate Docker containers. The foundational data was stored in its dedicated Docker container named 'postgis'. Each vector tile server under scrutiny was encapsulated within its own Docker container, accessible via individual ports.
+To ensure a consistent evaluation of performance across different server solutions, I employed the same PostGIS database as the data source for each solution. To achieve this, I established a [public cloud](https://www.infomaniak.com/de/hosting/public-cloud) infrastructure through the Swiss cloud provider Infomaniak, deploying a Linux instance. A Linux server was then configured to host various applications within separate Docker containers. The foundational data was stored in its dedicated Docker container named 'postgis'. Each vector tile server under scrutiny was encapsulated within its own Docker container, accessible via individual ports.
 
 In addition to the 6 primary applications, I set up two supplementary containers: 'nginx' served as a web server facilitating external access to the applications and accompanying HTML files, while the 'maputnik' container functioned as a vector tile style editor for defining the visual representation of the vector tiles.
 </br>
@@ -26,9 +26,7 @@ In addition to the 6 primary applications, I set up two supplementary containers
 </br>
 </br>
 
-
-
-## Overview vector-tiles-server
+### Overview vector-tiles-server
 
 | **Name**                    | BBOX                                              | ldproxy                                              | Martin                                               | pg_tileserv                               | Tegola                                 | TiPg                        |
 |-----------------------------|---------------------------------------------------|------------------------------------------------------|------------------------------------------------------|-------------------------------------------|----------------------------------------|-----------------------------|
@@ -78,27 +76,32 @@ In addition to the 6 primary applications, I set up two supplementary containers
 [Tegola - Documentation]:https://tegola.io/documentation/
 [Tipg - Documentation]:https://developmentseed.org/tipg/
 
-## mvt-benchmark
+## Implementation of the Vector Tiles Server
 
-### architecture
+**vector-tiles-benchmark**
+- bbox
+  - bbox.toml
+- ldproxy
+  - cfg.yml
+-	martin
+  - config.yaml
+- nginx
+  - html
+  - nginx.conf
+- pg_tileserv
+  - pg_tileserv.toml
+- tegola
+  - config.toml
+- tipg
+  - .env
+- .env
+-	compose.yaml
+-	.gitignore
+-	README.md
 
-https://www.infomaniak.com/de/hosting/public-cloud
+The file "compose.yaml" contains the configurations of all Docker containers. The configurations of each container are explained in the following sub-sections. Each container has been assigned a profile, with which the container can be started and stopped alongside the PostGIS database. An example of starting the container with a profile is: `docker compose --profile profilename up -d`
 
-- Serverleistung:
-- Betriebsystem:
-- Test
-- ...
-
-### installation and start Server
-All Servers and Application are storede in Docker-Conatainers and can be run with the explizit docker compose commando.
-
-all parameters are safed in this docker compose file.
-
-Alle Parameters  für das Aufsetzen der PostGIS Datenbank und der entsprechenden Server sind in docker-compose.ylm definiert.
-
-Um die entsprechnden Server inklusiv der PostGIS-Datenbank zu starten, muss folgender Docker-Befehl im gleichen Verzeichnis wie das YML-File ausgeführt werden.
-
-#### PostGIS Database
+### PostGIS Database
 
 To start only the postgis database without any other server you have to run the follwoing code with root permission (sudo -s) insisde the mvt-benchmark folder:
 ```yml
@@ -110,14 +113,15 @@ The database can now be connetcet with PGAdmin with the followed parameters:
 - **host:** *your public IP-Adress oder Serveradress   Example: 195.15.345.35*
 - **port:** `5432`
 - **username:** `postgres`
-- **password:** *your password defined in the docker-compose.yml File*
+- **password:** *your password defined in the compose.yaml or .env File*
 - **database:** `postgres`
 
-#### BBOX
+### BBOX
 
 BBOX is a Webserver created by [Sourcepole](https://sourcepole.ch) and is a new Webserver-Solution to create OGC-API Features and OGC-API Tiles. T-REX -> BBOX
 
 **Language:** RUST
+
 [GitHub](https://github.com/sourcepole/bbox)
 
 ```yml
@@ -126,45 +130,18 @@ docker compose --profile bbox up -d
 Note:  `-d` `--detach` Detached mode: Run containers in the background 
 Without the parameter the log-File will be shown in the Terminal
 
-Open webbrowser:
-- http://localhost:8804/collections
-- http://127.0.0.1:8804/collections
+Open webbrowser: http://localhost:8804
+
+Vector Tiles Request (Example: bo_boflaeche_mv): `http://localhost:8804/xyz/bo_boflaeche_mv/{z}/{x}/{y}.pbf`
 
 Note: Because the port 8080 is already used for other Servers, the port 8080 got maped to 8804.
 
-#### pg_tileserv
-
-pg_tileserv is a Webserver created by [CrunchyData](https://www.crunchydata.com) and is a  Webserver-Solution to create OGC-API Tiles from a PostGIS Database on the fly.
-
-**Language:** Go
-[GitHub](https://github.com/CrunchyData/pg_tileserv)
-
-Start Server:
-```yml
-docker compose --profile pg_tileserv up -d
-``` 
-Stop Server:
-```yml
-docker compose --profile pg_tileserv down
-``` 
-Note:  `-d` `--detach` Detached mode: Run containers in the background 
-Without the parameter the log-File will be shown in the Terminal
-
-Open webbrowser:
-- http://localhost:7800
-- http://localhost:7800/index.json
-
-Vector Tiles:
-```
-http://localhost:7800/avprodukt.bo_boflaeche_mv/{z}/{x}/{y}.pbf
-``` 
-
-
-#### ldproxy
+### ldproxy
 
 ldproxy is a Webserver created by [interactive instruments](https://www.interactive-instruments.de/) and is a  Webserver-Solution to create OGC-API Tiles and other OGC-API's from a PostGIS Database on the fly.
 
 **Language:** 
+
 [GitHub](https://github.com/interactive-instruments/ldproxy)
 
 Start Server:
@@ -178,46 +155,16 @@ docker compose --profile ldproxy down
 Note:  `-d` `--detach` Detached mode: Run containers in the background 
 Without the parameter the log-File will be shown in the Terminal
 
-Open manager in the webbrowser:
-- http://localhost:7080/manager
-- http://127.0.0.1:7080/manager
+Open webbrowser: http://localhost:7080/rest/services
 
-Note: Because the port 7800 is already used for other Servers, the port 7800 got maped to 7080.
+Vector Tiles Request (Example: bo_boflaeche_mv): `http://localhost:7080/rest/services/avprodukt/collections/bo_boflaeche_mv/tiles/WebMercatorQuad/{z}/{y}/{x}`
 
-#### tegola
+### Martin
 
-tegola is a Webserver created by the [Go Spatial Team](https://github.com/go-spatial) and is a  Webserver-Solution to create OGC-API Tiles from a PostGIS Database on the fly.
-
-**Language:** Go
-[GitHub](https://github.com/go-spatial/tegola)
-
-Start Server:
-```yml
-docker compose --profile tegola up -d
-``` 
-Stop Server:
-```yml
-docker compose --profile tegola down
-``` 
-Note:  `-d` `--detach` Detached mode: Run containers in the background 
-Without the parameter the log-File will be shown in the Terminal
-
-Open manager in the webbrowser:
-- http://localhost:8090
-- http://127.0.0.1:8090
-
-Vector Tiles:
-```
-http://localhost:8080/maps/av/{z}/{x}/{y}.pbf
-``` 
-
-
-
-#### martin
-
-martin is a Webserver created by the ??? and is a  Webserver-Solution to create OGC-API Tiles from a PostGIS Database on the fly.
+[Martin](https://martin.maplibre.org/) is an open-source vector tile server that allows generating and serving MVT (Mapbox Vector Tiles) from PostGIS tables, views, as well as from PMTiles or MBTiles. It enables the dynamic combination of multiple data sources within a single vector tile.
 
 **Language:** Rust
+
 [GitHub](https://github.com/maplibre/martin)
 
 Start Server:
@@ -231,24 +178,71 @@ docker compose --profile martin down
 Note:  `-d` `--detach` Detached mode: Run containers in the background 
 Without the parameter the log-File will be shown in the Terminal
 
-Open catalog in the webbrowser (List of all sources):
-- http://localhost:3000/catalog
-- http://127.0.0.1:3000/catalog
+Open catalog in the webbrowser (List of all sources): http://localhost:3000/catalog
 
-Vector Tiles:
-```
-http://localhost:3000/bo_boflaeche_mv/{z}/{x}/{y}
+Vector Tiles Request (Example: bo_boflaeche_mv):
+
+`http://localhost:3000/bo_boflaeche_mv/{z}/{x}/{y}` 
+`http://localhost:3000/bo_boflaeche_mv,bo_projgebaeude_mv/{z}/{x}/{y}` 
+
+### pg_tileserv
+
+pg_tileserv is a Webserver created by [CrunchyData](https://www.crunchydata.com) and is a  Webserver-Solution to create OGC-API Tiles from a PostGIS Database on the fly.
+
+**Language:** Go
+
+[GitHub](https://github.com/CrunchyData/pg_tileserv)
+
+Start Server:
+```yml
+docker compose --profile pg_tileserv up -d
 ``` 
-```
-http://localhost:3000/bo_boflaeche_mv,bo_projgebaeude_mv/{z}/{x}/{y}
+Stop Server:
+```yml
+docker compose --profile pg_tileserv down
 ``` 
+Note:  `-d` `--detach` Detached mode: Run containers in the background 
+Without the parameter the log-File will be shown in the Terminal
 
-#### tipg
+Open webbrowser: http://localhost:7800
 
-tipg is pronounced *T[ee]pg*, is a Python package that helps create lightweight OGC Features and Tiles API with a PostGIS Database backend. The API has been designed for OGC Features and OGC Tiles specifications.
+Vector Tiles Request (Example: bo_boflaeche_mv):
+
+`http://localhost:7800/avprodukt.bo_boflaeche_mv/{z}/{x}/{y}.pbf`
+`http://localhost:7800/avprodukt.bo_boflaeche_mv,avprodukt.bo_projgebaeude_mv/{z}/{x}/{y}.pbf`  
+
+### Tegola
+
+Tegola is a Webserver created by the [Go Spatial Team](https://github.com/go-spatial) and is a  Webserver-Solution to create OGC-API Tiles from a PostGIS Database on the fly.
+
+**Language:** Go
+
+[GitHub](https://github.com/go-spatial/tegola)
+
+Start Server:
+```yml
+docker compose --profile tegola up -d
+``` 
+Stop Server:
+```yml
+docker compose --profile tegola down
+``` 
+Note:  `-d` `--detach` Detached mode: Run containers in the background 
+Without the parameter the log-File will be shown in the Terminal
+
+Open manager in the webbrowser: http://localhost:8090
+
+Vector Tiles Request (Example: bo_boflaeche_mv):
+`http://localhost:8080/maps/av/{z}/{x}/{y}.pbf` 
+
+
+### TiPg
+
+TiPg is pronounced *T[ee]pg*, is a Python package that helps create lightweight OGC Features and Tiles API with a PostGIS Database backend. The API has been designed for OGC Features and OGC Tiles specifications.
 > Note This project is the result of the merge between tifeatures and timvt.
 
 **Language:** Python
+
 [GitHub](https://github.com/developmentseed/tipg)
 
 Start Server:
@@ -262,14 +256,8 @@ docker compose --profile tipg down
 Note:  `-d` `--detach` Detached mode: Run containers in the background 
 Without the parameter the log-File will be shown in the Terminal
 
-Open collections in the webbrowser (List of all sources):
-- http://localhost:8080/collections
-- http://127.0.0.1:8080/collections
+Open collections in the webbrowser (List of all sources): http://localhost:8080/collections
 
-Vector Tiles:
-```
-http://localhost:8080/collections/avprodukt.bo_boflaeche_mv/tiles/WebMercatorQuad/{z}/{x}/{y}
-``` 
-```
-http://localhost:8080/bo_boflaeche_mv,bo_projgebaeude_mv/{z}/{x}/{y}
-``` 
+Vector Tiles Request (Example: bo_boflaeche_mv):
+`http://localhost:8080/collections/avprodukt.bo_boflaeche_mv/tiles/WebMercatorQuad/{z}/{x}/{y}` 
+`http://localhost:8080/bo_boflaeche_mv,bo_projgebaeude_mv/{z}/{x}/{y}` 
