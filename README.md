@@ -78,25 +78,29 @@ In addition to the 6 primary applications, I set up two supplementary containers
 ## Implementation of the Vector Tiles Server
 
 **vector-tiles-benchmark**
-- bbox
-  - bbox.toml
-- ldproxy
-  - cfg.yml
--	martin
-  - config.yaml
-- nginx
-  - html
-  - nginx.conf
-- pg_tileserv
-  - pg_tileserv.toml
-- tegola
-  - config.toml
-- tipg
-  - .env
-- .env
--	compose.yaml
--	.gitignore
--	README.md
+* bbox
+  + bbox.toml
+* ldproxy
+  + cfg.yml
+* martin
+  + config.yaml
+* nginx
+  + html
+  + nginx.conf
+* pg_tileserv
+  + pg_tileserv.toml
+* sql-scripts
+* tegola
+  + config.toml
+* tipg
+  + .env
+* vector-tiles-benchmark
+  + test_plans
+  + test_results
+* .env
+* .gitignore
+* README.md
+* compose.yaml
 
 The file "compose.yaml" contains the configurations of all Docker containers. The configurations of each container are explained in the following sub-sections. Each container has been assigned a profile, with which the container can be started and stopped alongside the PostGIS database. An example of starting the container with a profile is: `docker compose --profile profilename up -d`
 
