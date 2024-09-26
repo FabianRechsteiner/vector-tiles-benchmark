@@ -1,5 +1,5 @@
 # Performance comparison of open source vector tiles server solutions for providing geodata from PostGIS databases
-This GitHub repository contains the attachments of Fabian Rechsteiner's master's thesis from May 2024, written in German, titled: Performancevergleich von Open-Source-Vector-Tiles-Serverlösungen zur Bereitstellung von Geodaten aus PostGIS-Datenbanken
+This GitHub repository contains the attachments of Fabian Rechsteiner's master's thesis from May 2024, written in German, titled: [Performancevergleich von Open-Source-Vector-Tiles-Serverlösungen zur Bereitstellung von Geodaten aus PostGIS-Datenbanken](Masterthesis_Fabian_Rechsteiner.pdf)
 
 This repository can be used as a vector tiles benchmark to compare the performance of various vector tiles servers using Apache JMeter.
 
@@ -118,6 +118,40 @@ The database can now be connetcet with PGAdmin with the followed parameters:
 - **username:** `postgres`
 - **password:** *your password defined in the compose.yaml or .env File*
 - **database:** `postgres`
+
+#### Import Data into PostGIS with PSQL
+
+This guide will help you download a SQL backup file and import it into a PostGIS-enabled PostgreSQL database using the `psql` command-line tool within the PostGIS Docker container.
+
+##### Prerequisites
+
+- Ensure PostGIS is installed in your PostgreSQL database.
+- The server should have a database named `postgres`.
+- The database must contain a `public` schema with the `geometry` type enabled (via PostGIS).
+
+##### Steps to Download and Import Data
+
+1. **Download the Backup File**:  
+   Download the SQL backup file (`avprodukt_prod_20231030.sql`, ~1.9 GB) from the following link to your server:
+   - [Download SQL Backup](https://kdrive.infomaniak.com/app/share/928565/73497fef-18ca-4e50-9551-58a56bcaac44)
+
+   Use `wget` to download the file directly to your server:
+   ```bash
+   wget https://kdrive.infomaniak.com/app/share/928565/73497fef-18ca-4e50-9551-58a56bcaac44 -O avprodukt_prod_20231030.sql
+Navigate to the Backup Directory as the root user:
+
+```bash
+sudo -s
+cd /path/to/your/backup/directory
+```
+Run the SQL Import Command directly from the PostGIS Docker container:
+
+```bash
+docker exec -i postgis psql -U postgres < avprodukt_prod_20231030.sql
+```
+Verify the Import:
+
+Use PGAdmin or QGIS to check if the data has been imported correctly.
 
 ### BBOX
 
