@@ -1,4 +1,5 @@
 postgis-data
+sample_data
 ldproxy/*
 !ldproxy/api-resources/tile-matrix-sets
 !ldproxy/store
