@@ -1,5 +1,5 @@
 # Performance comparison of open source vector tiles server solutions for providing geodata from PostGIS databases
-This GitHub repository contains the attachments of Fabian Rechsteiner's master's thesis from May 2024, written in German, titled: [Performancevergleich von Open-Source-Vector-Tiles-Serverlösungen zur Bereitstellung von Geodaten aus PostGIS-Datenbanken](Masterthesis_Fabian_Rechsteiner.pdf)
+This GitHub repository contains the attachments of Fabian Rechsteiner's master's thesis from May 2024, written in German, titled: [Performancevergleich von Open-Source-Vector-Tiles-Serverlösungen zur Bereitstellung von Geodaten aus PostGIS-Datenbanken](https://unigis.at/files/Mastertheses/Full/107112.pdf)
 
 This repository can be used as a vector tiles benchmark to compare the performance of various vector tiles servers using Apache JMeter.
 
