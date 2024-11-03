@@ -17,6 +17,8 @@ services:
       
   postgis:
     image: postgis/postgis:${POSTGRES_VERSION:-16-3.4-alpine}
+    shm_size: 1g
+    command: -c 'max_connections=200'
     container_name: postgis
     profiles: ["postgis","bbox","pg_tileserv","tipg","ldproxy","tegola","martin","all_server"]
     restart: always
