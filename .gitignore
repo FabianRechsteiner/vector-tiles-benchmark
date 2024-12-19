@@ -7,3 +7,4 @@ ldproxy/*
 !tipg/.env
 nginx/nginx.conf
 nginx/logs
+*cache
