@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Vectormap</title>
+    <meta property="og:description" content="Vector Tiles Amtliche Vermessung Thurgau" />
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' href='https://unpkg.com/maplibre-gl@4.1.2/dist/maplibre-gl.css' />
+    <script src='https://unpkg.com/maplibre-gl@4.1.2/dist/maplibre-gl.js'></script>
+
+    <style>
+        #author-info {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: rgba(255, 255, 255, 1);
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 10px;
+        }
+
+        .map-container {
+            position: relative;
+            height: calc(100vh - 20px);
+        }
+
+        .map-container h2 {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            background-color: #fff;
+            margin: 0;
+            padding: 5px;
+        }
+
+        #layer-control-container {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        #layer-control label {
+            display: inline-flex;
+            align-items: center;
+            margin-right: 20px;
+        }
+
+        #layer-control input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        #map-style-selector {
+            margin-top: auto;
+            margin-left: auto;
+            margin-right: 0;
+            margin-bottom: 10px;
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 20;
+            padding: 0;
+            background-color: #f1f1f1;
+            overflow: hidden;
+        }
+
+        li {
+            float: left;
+        }
+
+        li a {
+            display: block;
+            color: #000;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="grid-container">
+        <div id="map1" class="map-container">
+            <h2><a href="https://www.swisstopo.admin.ch/de/webkarten-light-base-map" target="_blank">Swisstopo</a></h2>
+        </div>
+        <div id="map2" class="map-container">
+            <h2><a href="https://www.vectormap.ch" target="_blank">Vectormap</a></h2>
+        </div>
+    </div>
+
+    <script>
+        var styleJson_map1 = 'https://vectortiles.geo.admin.ch/styles/ch.swisstopo.leichte-basiskarte.vt/style.json';
+        var styleJson_map2 = 'https://github.com/FabianRechsteiner/vector-tiles-benchmark/blob/master/nginx/styles/vectormap_pmtiles_av.json';
+        const mapSettings = {
+            zoom: 15,
+            center: [9.063727323272758, 47.583918972151814]
+        };
+    
+        var map1 = new maplibregl.Map({
+            container: 'map1',
+            style: styleJson_map1,
+            center: mapSettings.center,
+            zoom: mapSettings.zoom
+        });
+    
+        var map2 = new maplibregl.Map({
+            container: 'map2',
+            style: styleJson_map2,
+            center: mapSettings.center,
+            zoom: mapSettings.zoom
+        });
+    
+        // Synchronisierung der Karten
+        const maps = [map1, map2];
+    
+        maps.forEach((map) => {
+            map.on('move', () => syncMaps(maps, map));
+        });
+    
+        let isSyncing = false;
+    
+        function syncMaps(maps, sourceMap) {
+            if (isSyncing) return;
+    
+            isSyncing = true;
+            const { lng, lat } = sourceMap.getCenter();
+            const zoom = sourceMap.getZoom();
+    
+            maps.forEach(map => {
+                if (map !== sourceMap) {
+                    map.jumpTo({ center: [lng, lat], zoom: zoom });
+                }
+            });
+    
+            isSyncing = false;
+        }
+    </script>
+    <div id="author-info">Created by: <a href="https://github.com/FabianRechsteiner" target="_blank">Fabian Rechsteiner</a></div>
+</body>
+</html>
