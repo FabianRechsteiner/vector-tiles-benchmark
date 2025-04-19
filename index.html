@@ -70,7 +70,7 @@
             center: mapSettings.center,
             zoom: mapSettings.zoom,
             hash: true,
-            pitchWithRotate: false
+            pitchWithRotate: true
         });
 
         const map2 = new maplibregl.Map({
@@ -79,7 +79,7 @@
             center: mapSettings.center,
             zoom: mapSettings.zoom,
             hash: true,
-            pitchWithRotate: false
+            pitchWithRotate: true
         });
 
         const maps = [map1, map2];
@@ -100,12 +100,14 @@
             if (isSyncing) return;
 
             isSyncing = true;
-            const { lng, lat } = sourceMap.getCenter();
+            const center = sourceMap.getCenter();
             const zoom = sourceMap.getZoom();
+            const bearing = sourceMap.getBearing();
+            const pitch = sourceMap.getPitch();
 
             maps.forEach(map => {
                 if (map !== sourceMap) {
-                    map.jumpTo({ center: [lng, lat], zoom: zoom });
+                    map.jumpTo({ center: center, zoom: zoom, bearing: bearing, pitch: pitch });
                 }
             });
 
