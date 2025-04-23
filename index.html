@@ -1,120 +1,180 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 
 <head>
-    <title>Vectormap</title>
-    <meta property="og:description" content="Vector Tiles Amtliche Vermessung Thurgau" />
-    <meta charset='utf-8'>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel='stylesheet' href='https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css' />
-    <script src='https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js'></script>
+    <meta charset="utf-8">
+    <title>Vectormap vs Swisstopo</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <!-- MapLibre GL 3.x -->
+    <link href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" rel="stylesheet">
+    <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
+
+    <!-- PMTiles Protocol -->
     <script src="https://unpkg.com/pmtiles@2.11.0/dist/index.js"></script>
 
+    <!-- Slider-Plugin -->
+    <link href="css/maplibre-gl-compare.css" rel="stylesheet">
+    <script src="js/maplibre-gl-compare.js"></script>
+
     <style>
-        #author-info {
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            overflow: hidden
+        }
+
+        #modeBtn {
             position: absolute;
-            top: 5px;
-            right: 5px;
-            background-color: rgba(255, 255, 255, 1);
-            padding: 5px 10px;
+            bottom: 10px;
+            left: 10px;
+            z-index: 10;
+            padding: 8px 14px;
+            border: none;
             border-radius: 5px;
-        }
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            grid-gap: 10px;
+            background: #fff;
+            font-weight: bold;
+            cursor: pointer
         }
 
-        .map-container {
-            position: relative;
-            height: calc(100vh - 20px);
+        .mode-container {
+            position: absolute;
+            inset: 0;
+            display: none
         }
 
-        .map-container h2 {
+        /* Split (Slider) */
+        #splitContainer {
+            display: block
+        }
+
+        /* Startansicht  */
+        #before,
+        #after {
             position: absolute;
             top: 0;
-            left: 0;
-            z-index: 1;
-            background-color: #fff;
-            margin: 0;
-            padding: 5px;
+            bottom: 0;
+            width: 100%
+        }
+
+        /* Comparison (Side-by-Side) */
+        #cmpMapLeft,
+        #cmpMapRight {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 50%
+        }
+
+        #cmpMapLeft {
+            left: 0
+        }
+
+        #cmpMapRight {
+            right: 0
         }
     </style>
 </head>
 
 <body>
-    <div class="grid-container">
-        <div id="map1" class="map-container">
-            <h2><a href="https://www.swisstopo.admin.ch/de/webkarten-light-base-map" target="_blank">Swisstopo</a></h2>
-        </div>
-        <div id="map2" class="map-container">
-            <h2><a href="https://www.vectormap.ch" target="_blank">Vectormap</a></h2>
-        </div>
+
+    <button id="modeBtn">Zum Comparison-Modus</button>
+
+    <!-- Split / Slider -->
+    <div id="splitContainer" class="mode-container">
+        <div id="before"></div>
+        <div id="after"></div>
+    </div>
+
+    <!-- Comparison / Side by Side -->
+    <div id="cmpContainer" class="mode-container">
+        <div id="cmpMapLeft"></div>
+        <div id="cmpMapRight"></div>
     </div>
 
     <script>
+        /* ===== PMTiles-Protokoll registrieren ===== */
         const protocol = new pmtiles.Protocol();
         maplibregl.addProtocol("pmtiles", protocol.tile);
 
-        const styleJson_map1 = 'https://vectortiles.geo.admin.ch/styles/ch.swisstopo.leichte-basiskarte.vt/style.json';
-        const styleJson_map2 = 'https://raw.githubusercontent.com/FabianRechsteiner/vector-tiles-benchmark/master/nginx/styles/vectormap_pmtiles_av.json';
+        /* ===== Styles ===== */
+        const styleSwiss = 'https://vectortiles.geo.admin.ch/styles/ch.swisstopo.leichte-basiskarte.vt/style.json';
+        const styleVector = 'https://raw.githubusercontent.com/FabianRechsteiner/vector-tiles-benchmark/master/nginx/styles/vectormap_pmtiles_av.json';
 
-        const mapSettings = {
-            zoom: 15,
-            center: [9.063727323272758, 47.583918972151814]
+        /* ===== Startkamera ===== */
+        const startView = {
+            center: [9.063727323272758, 47.583918972151814],
+            zoom: 15, bearing: 0, pitch: 0, hash: true, pitchWithRotate: true
         };
 
-        const map1 = new maplibregl.Map({
-            container: 'map1',
-            style: styleJson_map1,
-            center: mapSettings.center,
-            zoom: mapSettings.zoom,
-            hash: true,
-            pitchWithRotate: true
+        /* ---------- 1 Split-Modus (Slider) ---------- */
+        const beforeMap = new maplibregl.Map({ container: 'before', style: styleSwiss, ...startView });
+        const afterMap = new maplibregl.Map({ container: 'after', style: styleVector, ...startView });
+        const splitCompare = new maplibregl.Compare(beforeMap, afterMap, '#splitContainer');
+
+        /* ---------- 2 Comparison-Modus (Side-by-Side) ---------- */
+        const cmpLeft = new maplibregl.Map({ container: 'cmpMapLeft', style: styleSwiss, ...startView });
+        const cmpRight = new maplibregl.Map({ container: 'cmpMapRight', style: styleVector, ...startView });
+
+        /* ---------- Controls ---------- */
+        [beforeMap, afterMap, cmpLeft, cmpRight].forEach(m => {
+            m.addControl(new maplibregl.NavigationControl());
+            m.addControl(new maplibregl.ScaleControl({ unit: 'metric' }));
         });
 
-        const map2 = new maplibregl.Map({
-            container: 'map2',
-            style: styleJson_map2,
-            center: mapSettings.center,
-            zoom: mapSettings.zoom,
-            hash: true,
-            pitchWithRotate: true
-        });
+        /* **Nur EIN** Fullscreen-Button auf der rechten Vergleichskarte */
+        cmpRight.addControl(new maplibregl.FullscreenControl());
 
-        const maps = [map1, map2];
-
-        maps.forEach((map) => {
-            map.on("load", () => {
-                map.addControl(new maplibregl.NavigationControl());
-                map.addControl(new maplibregl.ScaleControl({ unit: "metric" }));
-                map.addControl(new maplibregl.FullscreenControl());
-
-                map.on('move', () => syncMaps(maps, map));
-            });
-        });
-
-        let isSyncing = false;
-
-        function syncMaps(maps, sourceMap) {
-            if (isSyncing) return;
-
-            isSyncing = true;
-            const center = sourceMap.getCenter();
-            const zoom = sourceMap.getZoom();
-            const bearing = sourceMap.getBearing();
-            const pitch = sourceMap.getPitch();
-
-            maps.forEach(map => {
-                if (map !== sourceMap) {
-                    map.jumpTo({ center: center, zoom: zoom, bearing: bearing, pitch: pitch });
-                }
-            });
-
-            isSyncing = false;
+        /* ---------- Karten-Sync für Side-by-Side ---------- */
+        [cmpLeft, cmpRight].forEach(m => m.on('move', () => sync(m)));
+        let syncing = false;
+        function sync(src) {
+            if (syncing) return;
+            syncing = true;
+            const cfg = { center: src.getCenter(), zoom: src.getZoom(), bearing: src.getBearing(), pitch: src.getPitch() };
+            (src === cmpLeft ? cmpRight : cmpLeft).jumpTo(cfg);
+            syncing = false;
         }
-    </script>
 
-    <div id="author-info">Created by: <a href="https://github.com/FabianRechsteiner" target="_blank">Fabian Rechsteiner</a></div>
+        /* ---------- Umschalten Split ⇄ Comparison ---------- */
+        let splitMode = true;
+        const btn = document.getElementById('modeBtn');
+        btn.addEventListener('click', toggleMode);
+
+        function toggleMode() {
+            /* aktuelle Kamera holen */
+            const active = splitMode ? beforeMap : cmpLeft;
+            const cam = { center: active.getCenter(), zoom: active.getZoom(), bearing: active.getBearing(), pitch: active.getPitch() };
+
+            /* Container wechseln */
+            document.getElementById('splitContainer').style.display = splitMode ? 'none' : 'block';
+            document.getElementById('cmpContainer').style.display = splitMode ? 'block' : 'none';
+            splitMode = !splitMode;
+            btn.textContent = splitMode ? 'Zum Comparison-Modus' : 'Zum Split-Modus';
+
+            /* Kamera übertragen & resize */
+            if (splitMode) {
+                [beforeMap, afterMap].forEach(m => { m.jumpTo(cam); m.resize(); });
+                splitCompare._onResize && splitCompare._onResize();
+            } else {
+                [cmpLeft, cmpRight].forEach(m => { m.jumpTo(cam); m.resize(); });
+            }
+        }
+
+        /* ---------- Vollbild-Handling für Comparison ---------- */
+        document.addEventListener('fullscreenchange', () => {
+            if (!document.fullscreenElement) {           // Vollbild AUS
+                cmpLeft.style.display = '';
+                cmpRight.style.width = '50%';
+                if (!splitMode) { cmpLeft.resize(); cmpRight.resize(); }
+            } else if (!splitMode) {                      // Vollbild EIN (nur Comparison-Modus)
+                cmpLeft.style.display = 'none';
+                cmpRight.style.width = '100%';
+                cmpRight.resize();
+            }
+        });
+    </script>
 </body>
+
 </html>
