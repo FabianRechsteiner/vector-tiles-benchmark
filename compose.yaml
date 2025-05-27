@@ -17,7 +17,7 @@ services:
       
   postgis:
     image: postgis/postgis:${POSTGRES_VERSION:-16-3.4-alpine}
-    shm_size: 1g
+    shm_size: '2gb'
     command: -c 'max_connections=200'
     container_name: postgis
     profiles: ["postgis","bbox","pg_tileserv","tipg","ldproxy","tegola","martin","all_server"]
@@ -32,7 +32,7 @@ services:
       - 5432:5432
       
   bbox:
-    image: sourcepole/bbox-server-qgis:v0.5.0-beta1 #latest
+    image: sourcepole/bbox-server-qgis:qgis:v0.6.2 #latest
     container_name: bbox
     environment:
      - PGPASSWORD=${POSTGRES_USER_PASSWORD:-user_password}
@@ -67,8 +67,10 @@ services:
       - 7080:7080
 
   martin:
-    image: ghcr.io/maplibre/martin:v0.13.0
+    image: ghcr.io/maplibre/martin:v0.16.0
     container_name: martin
+    command: "--config /opt/martin_config/config.yaml"
+    # command: "--save-config /opt/martin_config/config14.yaml"
     environment:
       - DATABASE_URL=postgresql://${POSTGRES_USER_USERNAME:-user_name}:${POSTGRES_USER_PASSWORD:-user_password}@postgis/${POSTGRES_DB:-postgres_db}
     volumes:
