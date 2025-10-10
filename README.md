@@ -26,6 +26,7 @@ From zoom levels **10 – 15** the AV layers—served as compact **PMTiles**—s
 ▶ **[Open the comparison map](https://fabianrechsteiner.github.io/vector-tiles-benchmark)**
 
 
+
 ## Abstract
 The introduction of the new OGC API family marks a milestone in the exchange of geodata over the web. With the OGC API Tiles standard, both raster and vector data can now be provided as tiles, with vector data no longer being transmitted as images, but as geometry to the client. In this master's thesis, six open-source vector tiles servers (BBOX, Ldproxy, Martin, pg_tileserv, Tegola, and TiPg) are set up and configured using Docker in a public cloud. Vector tiles are created for each server from the vector data of the PostGIS database. Various test scenarios with Apache JMeter are used to determine which server can deliver the vector tiles the fastest. The results of the performance test show clear differences in the performance of the servers. One server proved to be by far the fastest, while another was clearly the slowest across all test scenarios. Additionally, a website is created using Maplibre GL JS to visually illustrate and compare the results. This master's thesis underscores the enormous potential and advantages of the new OGC API standards as well as vector tiles and aims to motivate geodata providers to offer their data according to these standards in the future.
 
