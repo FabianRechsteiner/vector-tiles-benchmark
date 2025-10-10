@@ -13,8 +13,8 @@ The following requirements must be met:
 To make the main findings of the master's thesis more accessible, a short podcast version of the abstract was created — once in German and once in English.  
 Both audio summaries were generated using **Gemini 2.5 Flash** and its *Audio Summary* feature.
 
-- [🎧 German audio summary (MP3)](media/thesis-summary-de.mp3)
-- [🎧 English audio summary (MP3)](media/thesis-summary-en.mp3)
+- [🎧 German audio summary (MP3)](media/thesis-summary-de.mp3?raw=1)
+- [🎧 English audio summary (MP3)](media/thesis-summary-en.mp3?raw=1)
 
 
 ## Interactive Comparison Map
