@@ -15,14 +15,20 @@ Both audio summaries were generated using **Gemini 2.5 Flash** and its *Audio Su
 
 <div align="center" style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
   <div style="flex:1; min-width:280px; max-width:360px;">
-    <p><strong>German Version</strong></p>
+    <p>
+      <strong><a href="media/thesis-summary-de.mp4?raw=1" target="_blank">🎧 German Version</a></strong>
+    </p>
     <video src="media/thesis-summary-de.mp4" controls width="320"></video>
   </div>
+
   <div style="flex:1; min-width:280px; max-width:360px;">
-    <p><strong>English Version</strong></p>
+    <p>
+      <strong><a href="media/thesis-summary-en.mp4?raw=1" target="_blank">🎧 English Version</a></strong>
+    </p>
     <video src="media/thesis-summary-en.mp4" controls width="320"></video>
   </div>
 </div>
+
 
 ## Interactive Comparison Map
 Explore a live web map that contrasts the official **Swisstopo** vector-tiles with a new set of **cadastral survey (AV)** vector-tiles.  
