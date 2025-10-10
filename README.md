@@ -8,6 +8,28 @@ The following requirements must be met:
 - Apache JMeter is installed on the local computer.
 - A localhost connection can be established from the computer to the server.
 
+## 🎧 Podcast Summary
+
+To make the main findings of the master's thesis more accessible, a short podcast version of the abstract was created — once in German and once in English.  
+Both audio summaries were generated using **Gemini 2.5 Flash** and its *Audio Summary* feature.
+
+**German Version**
+<audio controls>
+  <source src="media/thesis-summary-de.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+**English Version**
+<audio controls>
+  <source src="media/thesis-summary-en.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+Alternatively, you can listen directly via the links below:
+- [🎧 German audio summary (MP3)](media/thesis-summary-de.mp3)
+- [🎧 English audio summary (MP3)](media/thesis-summary-en.mp3)
+
+
 ## Interactive Comparison Map
 Explore a live web map that contrasts the official **Swisstopo** vector-tiles with a new set of **cadastral survey (AV)** vector-tiles.  
 From zoom levels **10 – 15** the AV layers—served as compact **PMTiles**—seamlessly replace the Swisstopo tiles, making it easy to spot differences in content and styling.
@@ -15,6 +37,7 @@ From zoom levels **10 – 15** the AV layers—served as compact **PMTiles**—s
 [![Preview of the swipe comparison map](https://github.com/user-attachments/assets/80135efe-5840-4c30-a083-06b9f76163b8)](https://fabianrechsteiner.github.io/vector-tiles-benchmark)
 
 ▶ **[Open the comparison map](https://fabianrechsteiner.github.io/vector-tiles-benchmark)**
+
 
 ## Abstract
 The introduction of the new OGC API family marks a milestone in the exchange of geodata over the web. With the OGC API Tiles standard, both raster and vector data can now be provided as tiles, with vector data no longer being transmitted as images, but as geometry to the client. In this master's thesis, six open-source vector tiles servers (BBOX, Ldproxy, Martin, pg_tileserv, Tegola, and TiPg) are set up and configured using Docker in a public cloud. Vector tiles are created for each server from the vector data of the PostGIS database. Various test scenarios with Apache JMeter are used to determine which server can deliver the vector tiles the fastest. The results of the performance test show clear differences in the performance of the servers. One server proved to be by far the fastest, while another was clearly the slowest across all test scenarios. Additionally, a website is created using Maplibre GL JS to visually illustrate and compare the results. This master's thesis underscores the enormous potential and advantages of the new OGC API standards as well as vector tiles and aims to motivate geodata providers to offer their data according to these standards in the future.
