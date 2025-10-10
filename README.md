@@ -13,9 +13,16 @@ The following requirements must be met:
 To make the main findings of the master's thesis more accessible, a short podcast version of the abstract was created — once in German and once in English.  
 Both audio summaries were generated using **Gemini 2.5 Flash** and its *Audio Summary* feature.
 
-- [🎧 German audio summary (MP3)](media/thesis-summary-de.mp3?raw=1)
-- [🎧 English audio summary (MP3)](media/thesis-summary-en.mp3?raw=1)
-
+<div align="center" style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+  <div style="flex:1; min-width:280px; max-width:360px;">
+    <p><strong>German Version</strong></p>
+    <video src="media/thesis-summary-de.mp4" controls width="320"></video>
+  </div>
+  <div style="flex:1; min-width:280px; max-width:360px;">
+    <p><strong>English Version</strong></p>
+    <video src="media/thesis-summary-en.mp4" controls width="320"></video>
+  </div>
+</div>
 
 ## Interactive Comparison Map
 Explore a live web map that contrasts the official **Swisstopo** vector-tiles with a new set of **cadastral survey (AV)** vector-tiles.  
