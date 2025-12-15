@@ -12,7 +12,6 @@
   "zoom": 8,
   "bearing": 0,
   "pitch": 0,
-  "projection": {"type": "mercator"},
   "sources": {
     "terrain_v1.0.0": {
       "url": "https://vectortiles.geo.admin.ch/tiles/ch.swisstopo.relief.vt/v1.0.0/tiles.json",
