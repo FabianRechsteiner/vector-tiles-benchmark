@@ -1,6 +1,6 @@
 {
   "version": 8,
-  "name": "lbm_v3.0.0_ch",
+  "name": "av_vectormap_swisstopo",
   "metadata": {
     "maputnik:renderer": "mbgljs",
     "openmaptiles:version": "3.x",
@@ -8,10 +8,11 @@
     "ga:publisher": "CI:607b9eb2-5e5a-4728-ae14-4d5ccdb02c00",
     "ga:branch": "master"
   },
-  "center": [8.349961425056108, 46.81133904939108],
-  "zoom": 7.2512975045452235,
+  "center": [8.375, 46.744],
+  "zoom": 8,
   "bearing": 0,
   "pitch": 0,
+  "projection": {"type": "mercator"},
   "sources": {
     "terrain_v1.0.0": {
       "url": "https://vectortiles.geo.admin.ch/tiles/ch.swisstopo.relief.vt/v1.0.0/tiles.json",
@@ -849,7 +850,7 @@
         ["==", "Art", "Gewaesser_fliessendes"],
         ["==", "Art", "Schilfguertel"]
       ],
-      "layout": {"visibility": "visible"},
+      "layout": {"visibility": "none"},
       "paint": {
         "fill-color": "rgba(199, 224, 245, 1)",
         "fill-opacity": 1,
@@ -2511,7 +2512,7 @@
       "source-layer": "Bodenbedeckung",
       "minzoom": 15,
       "filter": ["any", ["==", "Art", "Strasse_Weg"]],
-      "layout": {"visibility": "visible"},
+      "layout": {"visibility": "none"},
       "paint": {
         "fill-color": "rgba(243, 243, 243, 1)",
         "fill-opacity": 1,
@@ -2529,7 +2530,7 @@
         ["==", "Art", "Trottoir"],
         ["==", "Art", "Verkehrsinsel"]
       ],
-      "layout": {"visibility": "visible"},
+      "layout": {"visibility": "none"},
       "paint": {
         "fill-color": "rgba(227, 227, 230, 1)",
         "fill-opacity": 1,
@@ -2543,7 +2544,7 @@
       "source-layer": "Bodenbedeckung",
       "minzoom": 15,
       "filter": ["any", ["==", "Art", "uebrige_befestigte"]],
-      "layout": {"visibility": "visible"},
+      "layout": {"visibility": "none"},
       "paint": {
         "fill-opacity": {"stops": [[15, 0], [17, 1]]},
         "fill-translate-anchor": "map",
@@ -2910,7 +2911,7 @@
         ["==", "Art", "Gletscher_Firn"],
         ["==", "Art", "uebrige_vegetationslose"]
       ],
-      "layout": {"visibility": "visible"},
+      "layout": {"visibility": "none"},
       "paint": {
         "fill-color": "rgba(216, 255, 231, 1)",
         "fill-opacity": 1,
@@ -2932,7 +2933,7 @@
         ["==", "Art", "uebrige_Intensivkultur"],
         ["==", "Art", "uebrige_humusierte"]
       ],
-      "layout": {"visibility": "visible"},
+      "layout": {"visibility": "none"},
       "paint": {
         "fill-color": "rgba(255, 255, 255, 1)",
         "fill-opacity": 1,
@@ -2946,7 +2947,7 @@
       "source-layer": "Bodenbedeckung",
       "minzoom": 15,
       "filter": ["any", ["==", "Art", "Wasserbecken"]],
-      "layout": {"visibility": "visible"},
+      "layout": {"visibility": "none"},
       "paint": {
         "fill-color": "rgba(169, 188, 216, 1)",
         "fill-opacity": 1,
@@ -2961,7 +2962,7 @@
       "source-layer": "Bodenbedeckung",
       "minzoom": 15,
       "filter": ["all", ["==", "Art", "Gebaeude"]],
-      "layout": {"visibility": "visible"},
+      "layout": {"visibility": "none"},
       "paint": {
         "fill-color": {
           "base": 1,
@@ -2978,7 +2979,7 @@
       "source-layer": "Einzelobjekte",
       "minzoom": 17,
       "filter": ["any", ["==", "Art", "uebriger_Gebaeudeteil"]],
-      "layout": {"visibility": "visible"},
+      "layout": {"visibility": "none"},
       "paint": {
         "fill-color": "rgba(237, 240, 251, 1)",
         "fill-outline-color": "rgba(136, 136, 136, 1)",
@@ -2991,7 +2992,7 @@
       "source": "vectormap_av",
       "source-layer": "ProjBodenbedeckung",
       "minzoom": 14,
-      "layout": {"visibility": "visible"},
+      "layout": {"visibility": "none"},
       "paint": {
         "fill-color": "rgba(255, 0, 0, 0.47)",
         "fill-opacity": {"stops": [[14, 0], [15, 0.3]]}
@@ -3015,77 +3016,76 @@
           "Bahn",
           "hsl(0, 0%, 96%)",
           "Gebaeude",
-          "hsl(220, 6%, 82%)",
+          "hsl(220, 10%, 75%)",
           "uebrige_befestigte",
-          "hsl(220, 5%, 90%)",
+          "hsl(220, 3%, 88%)",
           "Verkehrsinsel",
           "hsl(220, 4%, 92%)",
           "Flugplatz",
           "hsl(220, 4%, 94%)",
           "geschlossener_Wald",
-          "hsl(110, 10%, 78%)",
-          "Wytweide_dicht",
-          "hsl(110, 8%, 82%)",
-          "Wytweide_offen",
-          "hsl(110, 6%, 85%)",
-          "Acker_Wiese_Weide",
-          "hsl(110, 6%, 86%)",
-          "Gartenanlage",
-          "hsl(90, 15%, 95%)",
-          "Reben",
-          "hsl(110, 8%, 83%)",
-          "Hoch_Flachmoor",
-          "hsl(110, 7%, 84%)",
-          "Schilfguertel",
-          "hsl(110, 7%, 83%)",
+          "rgb(186, 210, 172)",
           "uebrige_bestockte",
-          "hsl(110, 6%, 84%)",
+          "rgb(186, 210, 172)",
+          "Wytweide_dicht",
+          "rgb(186, 210, 172)",
+          "Acker_Wiese_Weide",
+          "rgb(215, 224, 209)",
+          "Reben",
+          "rgb(215, 224, 209)",
           "uebrige_humusierte",
-          "hsl(110, 4%, 88%)",
+          "rgb(215, 224, 209)",
           "uebrige_Intensivkultur",
-          "hsl(110, 4%, 89%)",
-          "Gewaesser_fliessendes",
-          "hsl(210, 12%, 90%)",
-          "Gewaesser_stehendes",
-          "hsl(210, 12%, 92%)",
-          "Wasserbecken",
-          "hsl(210, 10%, 91%)",
-          "Fels",
-          "hsl(40, 6%, 90%)",
-          "Geroell_Sand",
-          "hsl(40, 4%, 92%)",
-          "Gletscher_Firn",
-          "hsl(210, 6%, 94%)",
-          "Abbau_Deponie",
-          "hsl(40, 3%, 91%)",
+          "rgb(215, 224, 209)",
           "uebrige_vegetationslose",
-          "hsl(40, 2%, 93%)",
-          "hsl(0, 0%, 95%)"
+          "rgb(215, 224, 209)",
+          "Fels",
+          "rgb(215, 224, 209)",
+          "Abbau_Deponie",
+          "rgb(215, 224, 209)",
+          "Wytweide_offen",
+          "rgb(215, 224, 209)",
+          "Gartenanlage",
+          "rgb(225, 233, 220)",
+          "Hoch_Flachmoor",
+          "rgb(204, 229, 245)",
+          "Schilfguertel",
+          "rgb(204, 229, 245)",
+          "Gletscher_Firn",
+          "rgb(205, 232, 244)",
+          "Geroell_Sand",
+          "rgb(240, 218, 188)",
+          "Gewaesser_fliessendes",
+          "rgb(199, 224, 245)",
+          "Gewaesser_stehendes",
+          "rgb(199, 224, 245)",
+          "Wasserbecken",
+          "rgb(199, 224, 245)",
+          "rgb(215, 224, 209)"
         ],
         "fill-opacity": [
           "match",
           ["get", "Art"],
           "geschlossener_Wald",
-          0.65,
+          0.3,
+          "uebrige_bestockte",
+          0.3,
           "Wytweide_dicht",
-          0.65,
+          0.3,
+          "Gartenanlage",
+          0.3,
           "Wytweide_offen",
-          0.65,
+          0.3,
+          "Acker_Wiese_Weide",
+          0.3,
+          "Reben",
+          0.3,
+          "Hoch_Flachmoor",
+          0.3,
+          "Schilfguertel",
+          0.3,
           1
         ]
-      }
-    },
-    {
-      "id": "Unterirdisches Gebäude",
-      "type": "line",
-      "source": "vectormap_av",
-      "source-layer": "Einzelobjekte",
-      "minzoom": 15,
-      "filter": ["any", ["==", "Art", "unterirdisches_Gebaeude"]],
-      "layout": {"line-cap": "butt", "visibility": "visible"},
-      "paint": {
-        "line-color": "rgba(145, 145, 145, 1)",
-        "line-opacity": {"stops": [[17, 0], [18, 1]]}
       }
     },
     {
@@ -3199,7 +3199,7 @@
           "Faehre",
           ["literal", [30, 3, 5.4, 3]],
           "Skilift",
-          ["literal", [14.4, 0.6]],
+          ["literal", [5, 8]],
           ["literal", [100000, 0.0001]]
         ]
       }
@@ -3318,6 +3318,19 @@
           ["literal", [14.4, 0.6]],
           ["literal", [100000, 0.0001]]
         ]
+      }
+    },
+    {
+      "id": "Unterirdisches Gebäude",
+      "type": "line",
+      "source": "vectormap_av",
+      "source-layer": "Einzelobjekte",
+      "minzoom": 15,
+      "filter": ["any", ["==", "Art", "unterirdisches_Gebaeude"]],
+      "layout": {"line-cap": "butt", "visibility": "none"},
+      "paint": {
+        "line-color": "rgba(145, 145, 145, 1)",
+        "line-opacity": {"stops": [[17, 0], [18, 1]]}
       }
     },
     {
