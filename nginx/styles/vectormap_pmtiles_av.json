@@ -453,7 +453,7 @@
         ["==", "Art", "geschlossener_Wald"],
         ["==", "Art", "uebrige_bestockte"]
       ],
-      "layout": {"visibility": "visible"},
+      "layout": {"visibility": "none"},
       "paint": {
         "fill-color": "rgba(198, 232, 216, 1)",
         "fill-opacity": 1,
@@ -851,7 +851,7 @@
       ],
       "layout": {"visibility": "visible"},
       "paint": {
-        "fill-color": "rgba(169, 188, 216, 1)",
+        "fill-color": "rgba(199, 224, 245, 1)",
         "fill-opacity": 1,
         "fill-translate-anchor": "map"
       }
@@ -2513,7 +2513,7 @@
       "filter": ["any", ["==", "Art", "Strasse_Weg"]],
       "layout": {"visibility": "visible"},
       "paint": {
-        "fill-color": "rgba(210, 213, 216, 1)",
+        "fill-color": "rgba(243, 243, 243, 1)",
         "fill-opacity": 1,
         "fill-translate-anchor": "map"
       }
@@ -3004,7 +3004,7 @@
       "source-layer": "Einzelobjekte",
       "minzoom": 15,
       "filter": ["any", ["==", "Art", "unterirdisches_Gebaeude"]],
-      "layout": {"line-cap": "butt", "visibility": "none"},
+      "layout": {"line-cap": "butt", "visibility": "visible"},
       "paint": {
         "line-color": "rgba(145, 145, 145, 1)",
         "line-opacity": {"stops": [[17, 0], [18, 1]]}
@@ -3243,16 +3243,122 @@
       }
     },
     {
-      "id": "Liegenschaft",
-      "type": "line",
+      "id": "BB_fill",
+      "type": "fill",
       "source": "vectormap_av",
-      "source-layer": "Liegenschaften",
-      "minzoom": 16,
-      "layout": {"visibility": "visible"},
+      "source-layer": "Bodenbedeckung",
+      "minzoom": 15,
+      "layout": {"visibility": "none"},
       "paint": {
-        "line-color": "rgba(153, 153, 153, 1)",
-        "line-width": 1,
-        "line-opacity": {"stops": [[16, 0], [18, 1]]}
+        "fill-color": [
+          "match",
+          ["get", "Art"],
+          "Strasse_Weg",
+          "hsl(0, 0%, 98%)",
+          "Trottoir",
+          "hsl(0, 0%, 93%)",
+          "Bahn",
+          "hsl(0, 0%, 96%)",
+          "Gebaeude",
+          "hsl(220, 6%, 82%)",
+          "uebrige_befestigte",
+          "hsl(220, 5%, 90%)",
+          "Verkehrsinsel",
+          "hsl(220, 4%, 92%)",
+          "Flugplatz",
+          "hsl(220, 4%, 94%)",
+          "geschlossener_Wald",
+          "hsl(110, 10%, 78%)",
+          "Wytweide_dicht",
+          "hsl(110, 8%, 82%)",
+          "Wytweide_offen",
+          "hsl(110, 6%, 85%)",
+          "Acker_Wiese_Weide",
+          "hsl(110, 6%, 86%)",
+          "Gartenanlage",
+          "hsl(90, 15%, 95%)",
+          "Reben",
+          "hsl(110, 8%, 83%)",
+          "Hoch_Flachmoor",
+          "hsl(110, 7%, 84%)",
+          "Schilfguertel",
+          "hsl(110, 7%, 83%)",
+          "uebrige_bestockte",
+          "hsl(110, 6%, 84%)",
+          "uebrige_humusierte",
+          "hsl(110, 4%, 88%)",
+          "uebrige_Intensivkultur",
+          "hsl(110, 4%, 89%)",
+          "Gewaesser_fliessendes",
+          "hsl(210, 12%, 90%)",
+          "Gewaesser_stehendes",
+          "hsl(210, 12%, 92%)",
+          "Wasserbecken",
+          "hsl(210, 10%, 91%)",
+          "Fels",
+          "hsl(40, 6%, 90%)",
+          "Geroell_Sand",
+          "hsl(40, 4%, 92%)",
+          "Gletscher_Firn",
+          "hsl(210, 6%, 94%)",
+          "Abbau_Deponie",
+          "hsl(40, 3%, 91%)",
+          "uebrige_vegetationslose",
+          "hsl(40, 2%, 93%)",
+          "hsl(0, 0%, 95%)"
+        ],
+        "fill-opacity": [
+          "match",
+          ["get", "Art"],
+          "geschlossener_Wald",
+          0.65,
+          "Wytweide_dicht",
+          0.65,
+          "Wytweide_offen",
+          0.65,
+          1
+        ],
+        "fill-sort-key": [
+          "match",
+          ["get", "Art"],
+          "geschlossener_Wald",
+          2,
+          "Gletscher_Firn",
+          2,
+          "uebrige_bestockte",
+          2,
+          "Wytweide_dicht",
+          2,
+          "Wytweide_offen",
+          2,
+          "Gewaesser_fliessendes",
+          4,
+          "Gewaesser_stehendes",
+          4,
+          "Wasserbecken",
+          4,
+          "Abbau_Deponie",
+          5,
+          "Gartenanlage",
+          5,
+          "Hoch_Flachmoor",
+          5,
+          "Reben",
+          5,
+          "Schilfguertel",
+          5,
+          "Bahn",
+          10,
+          "Strasse_Weg",
+          11,
+          "Trottoir",
+          11,
+          "Verkehrsinsel",
+          11,
+          "Gebaeude",
+          9,
+          0
+        ]
       }
     },
     {
@@ -3307,6 +3413,19 @@
           ["case", ["==", ["var", "pz"], "unversichert"], 0, 1]
         ],
         "circle-stroke-color": "rgba(153, 153, 153, 1)"
+      }
+    },
+    {
+      "id": "Liegenschaft",
+      "type": "line",
+      "source": "vectormap_av",
+      "source-layer": "Liegenschaften",
+      "minzoom": 16,
+      "layout": {"visibility": "visible"},
+      "paint": {
+        "line-color": "rgba(153, 153, 153, 1)",
+        "line-width": 1,
+        "line-opacity": {"stops": [[16, 0], [18, 1]]}
       }
     },
     {
