@@ -1,180 +1,173 @@
 <!DOCTYPE html>
 <html lang="de">
-
 <head>
-    <meta charset="utf-8">
-    <title>Vectormap vs Swisstopo</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="utf-8">
+  <title>Vectormap vs Swisstopo</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
 
-    <!-- MapLibre GL 3.x -->
-    <link href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" rel="stylesheet">
-    <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
+  <!-- MapLibre GL (neueste Version in deinem Beispiel: 5.14.0) -->
+  <link href="https://unpkg.com/maplibre-gl@5.14.0/dist/maplibre-gl.css" rel="stylesheet">
+  <script src="https://unpkg.com/maplibre-gl@5.14.0/dist/maplibre-gl.js"></script>
 
-    <!-- PMTiles Protocol -->
-    <script src="https://unpkg.com/pmtiles@2.11.0/dist/index.js"></script>
+  <!-- PMTiles Protocol (neueste stabile Version: 4.3.0) -->
+  <!-- Wichtig: Browser-Bundle ist dist/pmtiles.js (nicht dist/index.js) -->
+  <script src="https://unpkg.com/pmtiles@4.3.0/dist/pmtiles.js"></script>
 
-    <!-- Slider-Plugin -->
-    <link href="css/maplibre-gl-compare.css" rel="stylesheet">
-    <script src="js/maplibre-gl-compare.js"></script>
+  <!-- Slider-Plugin -->
+  <link href="css/maplibre-gl-compare.css" rel="stylesheet">
+  <script src="js/maplibre-gl-compare.js"></script>
 
-    <style>
-        html,
-        body {
-            height: 100%;
-            margin: 0;
-            overflow: hidden
-        }
+  <style>
+    html, body { height: 100%; margin: 0; overflow: hidden; }
 
-        #modeBtn {
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-            z-index: 10;
-            padding: 8px 14px;
-            border: none;
-            border-radius: 5px;
-            background: #fff;
-            font-weight: bold;
-            cursor: pointer
-        }
+    #modeBtn {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      z-index: 10;
+      padding: 8px 14px;
+      border: none;
+      border-radius: 5px;
+      background: #fff;
+      font-weight: bold;
+      cursor: pointer;
+    }
 
-        .mode-container {
-            position: absolute;
-            inset: 0;
-            display: none
-        }
+    .mode-container { position: absolute; inset: 0; display: none; }
 
-        /* Split (Slider) */
-        #splitContainer {
-            display: block
-        }
+    /* Split (Slider) */
+    #splitContainer { display: block; }
 
-        /* Startansicht  */
-        #before,
-        #after {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 100%
-        }
+    /* Startansicht */
+    #before, #after { position: absolute; top: 0; bottom: 0; width: 100%; }
 
-        /* Comparison (Side-by-Side) */
-        #cmpMapLeft,
-        #cmpMapRight {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 50%
-        }
-
-        #cmpMapLeft {
-            left: 0
-        }
-
-        #cmpMapRight {
-            right: 0
-        }
-    </style>
+    /* Comparison (Side-by-Side) */
+    #cmpMapLeft, #cmpMapRight { position: absolute; top: 0; bottom: 0; width: 50%; }
+    #cmpMapLeft { left: 0; }
+    #cmpMapRight { right: 0; }
+  </style>
 </head>
 
 <body>
+  <button id="modeBtn">Zum Comparison-Modus</button>
 
-    <button id="modeBtn">Zum Comparison-Modus</button>
+  <!-- Split / Slider -->
+  <div id="splitContainer" class="mode-container">
+    <div id="before"></div>
+    <div id="after"></div>
+  </div>
 
-    <!-- Split / Slider -->
-    <div id="splitContainer" class="mode-container">
-        <div id="before"></div>
-        <div id="after"></div>
-    </div>
+  <!-- Comparison / Side by Side -->
+  <div id="cmpContainer" class="mode-container">
+    <div id="cmpMapLeft"></div>
+    <div id="cmpMapRight"></div>
+  </div>
 
-    <!-- Comparison / Side by Side -->
-    <div id="cmpContainer" class="mode-container">
-        <div id="cmpMapLeft"></div>
-        <div id="cmpMapRight"></div>
-    </div>
+  <script>
+    /* ===== PMTiles-Protokoll registrieren =====
+       pmtiles.js liefert ein globales "pmtiles" Objekt (z.B. pmtiles.Protocol) :contentReference[oaicite:1]{index=1}
+    */
+    const protocol = new pmtiles.Protocol();
+    maplibregl.addProtocol("pmtiles", protocol.tile);
 
-    <script>
-        /* ===== PMTiles-Protokoll registrieren ===== */
-        const protocol = new pmtiles.Protocol();
-        maplibregl.addProtocol("pmtiles", protocol.tile);
+    /* ===== Styles ===== */
+    const styleSwiss = "https://vectortiles.geo.admin.ch/styles/ch.swisstopo.leichte-basiskarte.vt/style.json";
+    const styleVector = "nginx/styles/vectormap_pmtiles_av.json";
 
-        /* ===== Styles ===== */
-        const styleSwiss = 'https://vectortiles.geo.admin.ch/styles/ch.swisstopo.leichte-basiskarte.vt/style.json';
-        const styleVector = 'https://raw.githubusercontent.com/FabianRechsteiner/vector-tiles-benchmark/master/nginx/styles/vectormap_pmtiles_av.json';
+    /* ===== Startkamera ===== */
+    const startView = {
+      center: [9.063727323272758, 47.583918972151814],
+      zoom: 15,
+      bearing: 0,
+      pitch: 0,
+      hash: true,
+      pitchWithRotate: true
+    };
 
-        /* ===== Startkamera ===== */
-        const startView = {
-            center: [9.063727323272758, 47.583918972151814],
-            zoom: 15, bearing: 0, pitch: 0, hash: true, pitchWithRotate: true
-        };
+    /* ---------- 1 Split-Modus (Slider) ---------- */
+    const beforeMap = new maplibregl.Map({ container: "before", style: styleSwiss, ...startView });
+    const afterMap  = new maplibregl.Map({ container: "after",  style: styleVector, ...startView });
+    const splitCompare = new maplibregl.Compare(beforeMap, afterMap, "#splitContainer");
 
-        /* ---------- 1 Split-Modus (Slider) ---------- */
-        const beforeMap = new maplibregl.Map({ container: 'before', style: styleSwiss, ...startView });
-        const afterMap = new maplibregl.Map({ container: 'after', style: styleVector, ...startView });
-        const splitCompare = new maplibregl.Compare(beforeMap, afterMap, '#splitContainer');
+    /* ---------- 2 Comparison-Modus (Side-by-Side) ---------- */
+    const cmpLeft  = new maplibregl.Map({ container: "cmpMapLeft",  style: styleSwiss,  ...startView });
+    const cmpRight = new maplibregl.Map({ container: "cmpMapRight", style: styleVector, ...startView });
 
-        /* ---------- 2 Comparison-Modus (Side-by-Side) ---------- */
-        const cmpLeft = new maplibregl.Map({ container: 'cmpMapLeft', style: styleSwiss, ...startView });
-        const cmpRight = new maplibregl.Map({ container: 'cmpMapRight', style: styleVector, ...startView });
+    /* ---------- Controls ---------- */
+    [beforeMap, afterMap, cmpLeft, cmpRight].forEach(m => {
+      m.addControl(new maplibregl.NavigationControl());
+      m.addControl(new maplibregl.ScaleControl({ unit: "metric" }));
+    });
 
-        /* ---------- Controls ---------- */
-        [beforeMap, afterMap, cmpLeft, cmpRight].forEach(m => {
-            m.addControl(new maplibregl.NavigationControl());
-            m.addControl(new maplibregl.ScaleControl({ unit: 'metric' }));
-        });
+    /* **Nur EIN** Fullscreen-Button auf der rechten Vergleichskarte */
+    cmpRight.addControl(new maplibregl.FullscreenControl());
 
-        /* **Nur EIN** Fullscreen-Button auf der rechten Vergleichskarte */
-        cmpRight.addControl(new maplibregl.FullscreenControl());
+    /* ---------- Karten-Sync für Side-by-Side ---------- */
+    [cmpLeft, cmpRight].forEach(m => m.on("move", () => sync(m)));
+    let syncing = false;
 
-        /* ---------- Karten-Sync für Side-by-Side ---------- */
-        [cmpLeft, cmpRight].forEach(m => m.on('move', () => sync(m)));
-        let syncing = false;
-        function sync(src) {
-            if (syncing) return;
-            syncing = true;
-            const cfg = { center: src.getCenter(), zoom: src.getZoom(), bearing: src.getBearing(), pitch: src.getPitch() };
-            (src === cmpLeft ? cmpRight : cmpLeft).jumpTo(cfg);
-            syncing = false;
-        }
+    function sync(src) {
+      if (syncing) return;
+      syncing = true;
+      const cfg = {
+        center: src.getCenter(),
+        zoom: src.getZoom(),
+        bearing: src.getBearing(),
+        pitch: src.getPitch()
+      };
+      (src === cmpLeft ? cmpRight : cmpLeft).jumpTo(cfg);
+      syncing = false;
+    }
 
-        /* ---------- Umschalten Split ⇄ Comparison ---------- */
-        let splitMode = true;
-        const btn = document.getElementById('modeBtn');
-        btn.addEventListener('click', toggleMode);
+    /* ---------- Umschalten Split ⇄ Comparison ---------- */
+    let splitMode = true;
+    const btn = document.getElementById("modeBtn");
 
-        function toggleMode() {
-            /* aktuelle Kamera holen */
-            const active = splitMode ? beforeMap : cmpLeft;
-            const cam = { center: active.getCenter(), zoom: active.getZoom(), bearing: active.getBearing(), pitch: active.getPitch() };
+    btn.addEventListener("click", toggleMode);
 
-            /* Container wechseln */
-            document.getElementById('splitContainer').style.display = splitMode ? 'none' : 'block';
-            document.getElementById('cmpContainer').style.display = splitMode ? 'block' : 'none';
-            splitMode = !splitMode;
-            btn.textContent = splitMode ? 'Zum Comparison-Modus' : 'Zum Split-Modus';
+    function toggleMode() {
+      /* aktuelle Kamera holen */
+      const active = splitMode ? beforeMap : cmpLeft;
+      const cam = {
+        center: active.getCenter(),
+        zoom: active.getZoom(),
+        bearing: active.getBearing(),
+        pitch: active.getPitch()
+      };
 
-            /* Kamera übertragen & resize */
-            if (splitMode) {
-                [beforeMap, afterMap].forEach(m => { m.jumpTo(cam); m.resize(); });
-                splitCompare._onResize && splitCompare._onResize();
-            } else {
-                [cmpLeft, cmpRight].forEach(m => { m.jumpTo(cam); m.resize(); });
-            }
-        }
+      /* Container wechseln */
+      document.getElementById("splitContainer").style.display = splitMode ? "none" : "block";
+      document.getElementById("cmpContainer").style.display   = splitMode ? "block" : "none";
+      splitMode = !splitMode;
+      btn.textContent = splitMode ? "Zum Comparison-Modus" : "Zum Split-Modus";
 
-        /* ---------- Vollbild-Handling für Comparison ---------- */
-        document.addEventListener('fullscreenchange', () => {
-            if (!document.fullscreenElement) {           // Vollbild AUS
-                cmpLeft.style.display = '';
-                cmpRight.style.width = '50%';
-                if (!splitMode) { cmpLeft.resize(); cmpRight.resize(); }
-            } else if (!splitMode) {                      // Vollbild EIN (nur Comparison-Modus)
-                cmpLeft.style.display = 'none';
-                cmpRight.style.width = '100%';
-                cmpRight.resize();
-            }
-        });
-    </script>
+      /* Kamera übertragen & resize */
+      if (splitMode) {
+        [beforeMap, afterMap].forEach(m => { m.jumpTo(cam); m.resize(); });
+        // maplibre-gl-compare braucht manchmal ein extra resize
+        if (splitCompare && typeof splitCompare._onResize === "function") splitCompare._onResize();
+      } else {
+        [cmpLeft, cmpRight].forEach(m => { m.jumpTo(cam); m.resize(); });
+      }
+    }
+
+    /* ---------- Vollbild-Handling für Comparison ----------
+       Fix: DOM-Elemente statt Map-Objekte anfassen (cmpLeft/cmpRight sind Maps, keine HTML-Elemente).
+    */
+    const cmpLeftEl  = document.getElementById("cmpMapLeft");
+    const cmpRightEl = document.getElementById("cmpMapRight");
+
+    document.addEventListener("fullscreenchange", () => {
+      if (!document.fullscreenElement) {            // Vollbild AUS
+        cmpLeftEl.style.display = "";
+        cmpRightEl.style.width = "50%";
+        if (!splitMode) { cmpLeft.resize(); cmpRight.resize(); }
+      } else if (!splitMode) {                      // Vollbild EIN (nur Comparison-Modus)
+        cmpLeftEl.style.display = "none";
+        cmpRightEl.style.width = "100%";
+        cmpRight.resize();
+      }
+    });
+  </script>
 </body>
-
 </html>
