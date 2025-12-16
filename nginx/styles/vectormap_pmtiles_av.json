@@ -3367,6 +3367,19 @@
       }
     },
     {
+      "id": "LS_Liegenschaften_projektiert",
+      "type": "line",
+      "source": "vectormap_av",
+      "source-layer": "Liegenschaften_projektiert",
+      "minzoom": 16,
+      "layout": {"visibility": "visible"},
+      "paint": {
+        "line-color": "rgba(255, 0, 0, 1)",
+        "line-width": 1,
+        "line-opacity": {"stops": [[16, 0], [18, 1]]}
+      }
+    },
+    {
       "id": "LS_Grenzpunkte",
       "type": "circle",
       "source": "vectormap_av",
