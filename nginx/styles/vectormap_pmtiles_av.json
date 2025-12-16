@@ -340,6 +340,13 @@
       }
     },
     {
+      "id": "Bodenbedeckung_projektiert",
+      "type": "fill",
+      "source": "vectormap_av",
+      "source-layer": "Bodenbedeckung_projektiert",
+      "paint": {"fill-color": "rgba(255, 0, 0, 0.2)", "fill-opacity": 1}
+    },
+    {
       "id": "Einzelobjekte_Flaechen",
       "type": "line",
       "source": "vectormap_av",
