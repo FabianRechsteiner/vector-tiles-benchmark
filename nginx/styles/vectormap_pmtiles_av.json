@@ -15,15 +15,18 @@
   "sources": {
     "terrain_v1.0.0": {
       "url": "https://vectortiles.geo.admin.ch/tiles/ch.swisstopo.relief.vt/v1.0.0/tiles.json",
-      "type": "vector"
+      "type": "vector",
+      "attribution": "© swisstopo"
     },
     "leichtebasiskarte_v3.0.1": {
       "url": "https://vectortiles.geo.admin.ch/tiles/ch.swisstopo.leichte-basiskarte.vt/v3.0.1/tiles.json",
-      "type": "vector"
+      "type": "vector",
+      "attribution": "© swisstopo"
     },
     "vectormap_av": {
       "type": "vector",
-      "url": "pmtiles://https://vectormap.ch/pmtiles/av/av.pmtiles"
+      "url": "pmtiles://https://vectormap.ch/pmtiles/av/av.pmtiles",
+      "attribution": "© swisstopo, © vectormap"
     }
   },
   "sprite": "https://vectortiles.geo.admin.ch/styles/ch.swisstopo.leichte-basiskarte.vt/sprite/sprite",
